@@ -1,9 +1,8 @@
-Feature: Example feature
-  As a user of cucumber.js
-  I want to have documentation on cucumber
-  So that I can concentrate on building awesome applications
+Feature: Hello world feature
+  As a user of Grad app 
+  I want to see hello world on the home page 
+  So that I know that the app is working 
 
-  Scenario: Reading documentation
-    Given I am on the cuke-tap repo page
-    When I go to the README file
-    Then I should see "Usage" as the page title
+  Scenario: Visiting home page 
+    Given I am on the home page
+    Then I should see "Hello world" as the page title
