@@ -18,3 +18,4 @@ module.exports = [
     t.equal(params[1], 'Usage')
   }]
 ]
+
