@@ -1,15 +1,13 @@
-var jsdom = require('jsdom')
+var Browser = require('zombie')
+Browser.localhost('example.com', '9966')
+
 module.exports = [
   [/^I am on the home page$/, function (t, world) {
-    jsdom.env('http://localhost:9966', (err, window) => {
-      t.error(err)
-      world.window = window
-      t.end()
-    })
+    world.browser = new Browser()
+    world.browser.visit('/', t.end)
   }],
   [/^I should see "(.*)" as the page title$/, function (t, world, params) {
-    const el = world.window.document.querySelector('h1')
-    t.equal(el.textContent, params[1] )
+    world.browser.assert.element('h1')
     t.end()
   }]
 ]
