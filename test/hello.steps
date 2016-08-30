@@ -3,11 +3,14 @@ Browser.localhost('example.com', '9966')
 
 module.exports = [
   [/^I am on the home page$/, function (t, world) {
+		t.plan(1)
     world.browser = new Browser()
-    world.browser.visit('/', t.end)
+		console.log(world.browser)
+    world.browser.visit('/', t.pass)
   }],
   [/^I should see "(.*)" as the page title$/, function (t, world, params) {
-    world.browser.assert.element('h1')
+    var res = world.browser.element('h1')
+		console.log(res)
     t.end()
   }]
 ]
