@@ -1,17 +1,18 @@
-var Browser = require('zombie')
-Browser.localhost('example.com', '9966')
-
 module.exports = [
   [/^I am on the home page$/, function (t, world) {
-		t.plan(1)
-    world.browser = new Browser()
-		console.log(world.browser)
-    world.browser.visit('/', t.pass)
+		debugger
+		window.location.href ='http://localhost:9966'
   }],
   [/^I should see "(.*)" as the page title$/, function (t, world, params) {
-    var res = world.browser.element('h1')
-		console.log(res)
-    t.end()
+		const window = world.window
+		const document = window.document
+		process.nextTick(function() {
+			const titleElem = document.querySelector('h1')
+			t.equal(titleElem.textContent, params[1])
+			t.end()
+			window.close()
+		})
+
   }]
 ]
 
