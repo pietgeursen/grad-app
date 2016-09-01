@@ -23,7 +23,6 @@ module.exports = [
         const titleElem = target.querySelector('h1')
         t.equal(titleElem.textContent, params[1])
         t.end()
-        window.close()
       })
     )
   }]
