@@ -25,5 +25,20 @@ module.exports = [
         t.end()
       })
     )
+  }],
+  [/^I should see a list of graduates$/, function (t, world, params) {
+    const window = world.window
+    const document = window.document
+
+    pull(
+      domMutant(world.main),
+      pull.take(1),
+      pull.drain(function (mutation) {
+        const target = mutation.target
+        const gradDivs = target.querySelector('.grad')
+        t.ok(gradDivs.length > 0)
+        t.end()
+      })
+    )
   }]
 ]
