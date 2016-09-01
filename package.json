@@ -7,7 +7,7 @@
     "start": "budo . -d --serve bundle.js --live",
     "build": "browserify . -o bundle.js -g uglifyify",
     "test": "browserify test/hello.js | tape-run | tap-spec",
-    "test:watch": "watchify test/hello.js -o '| tape-run' | tap-spec",
+    "test:watch": "watchify test/hello.js -o '| tape-run' ",
     "test:debug": "budo test/hello.js -d --serve bundle.js --live ",
     "dist": "mkdir -p dist && bash -c 'cp *.{js,html,css} dist'",
     "push": "gh-pages -d dist",
