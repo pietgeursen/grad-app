@@ -4,7 +4,7 @@ const featureSource = fs.readFileSync(path.join(__dirname, 'hello.feature'), 'ut
 const cuke = require('cuke-tap')
 
 const features = path.join(__dirname, 'hello.feature')
-const steps = require('./hello.steps')
+const steps = require('./hello.steps.js')
 
 cuke({
   steps: steps,

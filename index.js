@@ -27,7 +27,6 @@ pull(
   sources.views(),
   pull.drain(function (view) {
     html.update(main, view)
-		if(window.inuRendered) window.inuRenedered(view)
+    if (window.inuRendered) window.inuRenedered(view)
   })
 )
-
