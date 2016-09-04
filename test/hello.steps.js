@@ -1,43 +1,39 @@
 var pull = require('pull-stream')
 var domMutant = require('pull-dom-mutants')
+var startApp = require('../app')
 
 module.exports = [
   [/^I am on the home page$/, function (t, world) {
+    const window = require('global/window')
     const main = window.document.createElement('main')
     window.document.body.appendChild(main)
-    world.main = main
-    require('../index')
-    world.window = window
+    world.mainMutations = domMutant(main, {window})
+    startApp(main)
     t.ok(true)
     t.end()
   }],
   [/^I should see "(.*)" as the page title$/, function (t, world, params) {
-    const window = world.window
-    const document = window.document
-
     pull(
-      domMutant(world.main),
-      pull.take(1),
-      pull.drain(function (mutation) {
+      world.mainMutations,
+      pull.drain(function (mutation, done) {
         const target = mutation.target
         const titleElem = target.querySelector('h1')
         t.equal(titleElem.textContent, params[1])
         t.end()
+        return false
       })
     )
   }],
   [/^I should see a list of graduates$/, function (t, world, params) {
-    const window = world.window
-    const document = window.document
-
+    t.plan(1)
     pull(
-      domMutant(world.main),
-      pull.take(1),
+      world.mainMutations,
+      pull.filter(function (mutations) {
+        return mutations.target.querySelector('.grad')
+      }),
       pull.drain(function (mutation) {
-        const target = mutation.target
-        const gradDivs = target.querySelector('.grad')
-        t.ok(gradDivs.length > 0)
-        t.end()
+        t.ok(mutation, 'got a mutation where child matched .grad')
+        return false
       })
     )
   }]
