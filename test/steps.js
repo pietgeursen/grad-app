@@ -3,6 +3,18 @@ var domMutant = require('pull-dom-mutants')
 var startApp = require('../app')
 
 module.exports = [
+  [/^I am a potential employer$/, function (t, world) {
+    t.ok(true)
+    t.end()
+  }],
+  [/^I am an admin$/, function (t, world) {
+    t.ok(true)
+    t.end()
+  }],
+  [/^I am a grad$/, function (t, world) {
+    t.ok(true)
+    t.end()
+  }],
   [/^I am on the home page$/, function (t, world) {
     const window = require('global/window')
     const main = window.document.createElement('main')
