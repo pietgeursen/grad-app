@@ -7,9 +7,9 @@
     "start": "budo . -d --serve bundle.js --live",
     "build": "browserify . -o bundle.js -g uglifyify",
     "deps": "dependency-check . && dependency-check . --extra --no-dev",
-    "test": "browserify test/hello.js | tape-run | tap-spec",
-    "test:watch": "watchify test/hello.js -o '| tape-run' ",
-    "test:debug": "budo test/hello.js -d --serve bundle.js --live ",
+    "test": "browserify test/cuke.js | tape-run | tap-spec",
+    "test:watch": "watchify test/cuke.js -o '| tape-run' ",
+    "test:debug": "budo test/cuke.js -d --serve bundle.js --live ",
     "dist": "mkdir -p dist && bash -c 'cp *.{js,html,css} dist'",
     "push": "gh-pages -d dist",
     "deploy": "npm run build && npm run dist && npm run push"
