@@ -3,7 +3,7 @@ const { Domain, run } = require('inux')
 const pullAsync = require('pull-async')
 
 const { SET, set } = require('./actions')
-const { set: setAccount } = require('dex/accounts/actions')
+// const { set: setAccount } = require('dex/accounts/actions')
 const { WHOAMI, LOGIN, LOGOUT, SIGNUP, whoami } = require('./effects')
 
 module.exports = User

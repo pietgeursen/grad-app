@@ -1,7 +1,7 @@
 import { start, html, pull } from 'inu'
 import { App, Domain, Action } from 'inux'
-
-import mutants from 'pull-dom-mutants'
+import Account from './accounts/app'
+import Users from './users/app'
 
 const view = ({home}, dispatch) => html` 
 <main>
@@ -28,9 +28,11 @@ const home = Domain({
   ]
 })
 
-const app = App([home])
-
-module.exports = function startApp (elem) {
+module.exports = function startApp (elem, api) {
+  const app = App([
+    home,
+    Account({api})
+  ])
   const sources = start(app)
 
   pull(

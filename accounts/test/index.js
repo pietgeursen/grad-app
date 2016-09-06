@@ -10,7 +10,7 @@ test('can create a new account', function (t) {
   config.db = level(config.dbPath)
   const email = 'pietgeursen@gmail.com'
   pull(
-    once(service.init(null, config)),
+    once(service.methods(null, config)),
     asyncMap(function (accounts, cb) {
       accounts.create(email, cb)
     }),
@@ -24,7 +24,8 @@ test('can create a new account', function (t) {
 test('cant create a new account when email already exists', function (t) {
   config.db = level(config.dbPath)
   const email = 'pietgeursen@gmail.com'
-  const accounts = service.init(null, config)
+  const accounts = service.methods(null, config)
+
   pull(
     once(accounts),
     asyncMap(function (accounts, cb) {
@@ -45,7 +46,7 @@ test('cant create a new account when email already exists', function (t) {
 test('can get by email', function (t) {
   config.db = level(config.dbPath)
   const email = 'pietgeursen@gmail.com'
-  const accounts = service.init(null, config)
+  const accounts = service.methods(null, config)
   pull(
     once(accounts),
     asyncMap(function (accounts, cb) {
@@ -64,7 +65,7 @@ test('can get by email', function (t) {
 test('can update an account with a new email and password', function (t) {
   config.db = level(config.dbPath)
   const email = 'pietgeursen@gmail.com'
-  const accounts = service.init(null, config)
+  const accounts = service.methods(null, config)
   pull(
     once(accounts),
     asyncMap(function (accounts, cb) {
@@ -84,7 +85,7 @@ test('can update an account with a new email and password', function (t) {
 test('can verify an account with a correct password', function (t) {
   config.db = level(config.dbPath)
   const email = 'pietgeursen@gmail.com'
-  const accounts = service.init(null, config)
+  const accounts = service.methods(null, config)
   pull(
     once(accounts),
     asyncMap(function (accounts, cb) {
@@ -107,7 +108,7 @@ test('can verify an account with a correct password', function (t) {
 test('cant verify an account with an incorrect password', function (t) {
   config.db = level(config.dbPath)
   const email = 'pietgeursen@gmail.com'
-  const accounts = service.init(null, config)
+  const accounts = service.methods(null, config)
   pull(
     once(accounts),
     asyncMap(function (accounts, cb) {

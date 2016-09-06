@@ -8,15 +8,14 @@ const service = {
     signup: 'async',
     whoami: 'sync'
   },
-  init: function (server, config) {
+  methods: function (server, config) {
     const accounts = server.methods.accounts
     const tickets = config.tickets
 
     return {
       whoami,
       login,
-      signup
-    }
+    signup}
 
     function whoami () {
       return this.id
@@ -50,7 +49,7 @@ const service = {
       Route([
         ['login/:ticket', function (req, res, next) {
           config.tickets.redeem(req.params.ticket, function (err, cookie) {
-            if(err) return next(err)
+            if (err) return next(err)
             // ticket is redeemed! set it as a cookie, 
             res.setHeader('Set-Cookie', cookie)
             res.setHeader('Location', '/') // redirect to the login page.

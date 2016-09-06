@@ -5,7 +5,7 @@ const config = {
   url: '//localhost:5000',
   entry: join(__dirname, 'browser.js'),
   dbPath: join(__dirname, 'db'),
-  staticPath: join(__dirname, 'dex')
+  staticPath: join(__dirname, '.')
 }
 
 if (process.env.NODE_ENV === 'production') {

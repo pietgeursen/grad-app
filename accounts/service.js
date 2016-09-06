@@ -1,7 +1,7 @@
 const extend = require('xtend')
 const Model = require('level-model')
 const cuid = require('cuid')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 const schema = require('./schema.json')
 
@@ -14,7 +14,7 @@ const service = {
     update: 'async',
     verify: 'async'
   },
-  init: function (server, config) {
+  methods: function (server, config) {
     const accounts = Model(
       config.db,
       extend(schema, {
@@ -39,7 +39,6 @@ const service = {
     }
 
     function create (email, cb) {
-      console.log('server create with email:', email)
       const notFoundMessage = '[NotFoundError: model not found with email'
       accounts.findOne('email', email, function (err, data) {
         if (data) return cb(new Error('Account already created.'))
