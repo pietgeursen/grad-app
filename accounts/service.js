@@ -1,7 +1,7 @@
 const extend = require('xtend')
 const Model = require('level-model')
 const cuid = require('cuid')
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcrypt')
 
 const schema = require('./schema.json')
 

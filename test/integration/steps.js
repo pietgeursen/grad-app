@@ -48,7 +48,20 @@ module.exports = [
     t.end()
   }],
   [/^I click on login$/, function (t, world) {
-    t.end()
+    pull(
+      world.mainMutations,
+      pull.filter(function (mutations) {
+        return mutations.target.querySelector('#login')
+      }),
+      pull.map(function (mutation) {
+        return mutation.target.querySelector('#login')
+      }),
+      pull.drain(function (button) {
+        t.ok(button.click)
+        button.click()
+        t.end()
+      })
+    )
   }],
   [/^I fill out valid credentials$/, function (t, world) {
     t.end()
@@ -57,6 +70,7 @@ module.exports = [
     const window = require('global/window')
     const main = window.document.createElement('main')
     window.document.body.appendChild(main)
+    world.main = main
     world.mainMutations = domMutant(main, {window})
     startApp(main, world.client)
     t.ok(true)

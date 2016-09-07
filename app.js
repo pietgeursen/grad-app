@@ -12,7 +12,7 @@ const view = ({home}, dispatch) => html`
 			return html`<div class="grad">${grad.name}</div>`	
 		})}
 	</ul>
-	<button onclick=${() => dispatch(navigate('login'))}>Sign in</button>
+	<button id="login" onclick=${() => dispatch(navigate('login'))}>Sign in</button>
 </main>
 `
 
