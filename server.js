@@ -9,7 +9,6 @@ const service = require('./services')
 const config = require('./config')
 
 config.db = level(config.dbPath)
-console.log(config.db)
 const ticketsDb = sub(config.db, 'tickets', { valueEncoding: 'json' })
 const tickets = config.tickets = Tickets(ticketsDb)
 

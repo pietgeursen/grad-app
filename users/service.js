@@ -73,6 +73,7 @@ const service = {
       },
       // return list of the current access rights. (for debugging)
       Route('whoami', function (req, res, next) {
+        console.log('I am:', this.id)
         res.end(JSON.stringify(this.id) + '\n')
       })
     ]

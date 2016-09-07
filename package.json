@@ -18,6 +18,14 @@
   "browserify": {
     "transform": [
       [
+        "evalify",
+        {
+          "files": [
+            "**/service.js"
+          ]
+        }
+      ],
+      [
         "babelify",
         {
           "presets": "es2015"
@@ -41,6 +49,7 @@
   "dependencies": {
     "bcrypt": "^0.8.7",
     "cuid": "^1.3.8",
+    "get-form-data": "^1.2.5",
     "http-routes": "^1.2.3",
     "level-mem": "^0.18.0",
     "level-model": "^2.0.2",
@@ -61,9 +70,10 @@
     "budo": "^8.2.0",
     "cuke-tap": "github:pietgeursen/cuke-tap",
     "dependency-check": "^2.6.0",
+    "evalify": "^2.0.0",
     "gh-pages": "^0.11.0",
     "inu": "^3.1.3",
-    "inux": "^2.0.7",
+    "inux": "github:ahdinosaur/inux#navigate",
     "pull-dom-mutants": "^1.0.1",
     "pull-test": "^1.2.3",
     "tap-spec": "^4.1.1",

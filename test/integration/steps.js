@@ -21,19 +21,28 @@ function stubServices (services) {
 
 module.exports = [
   [/^I am a potential employer$/, function (t, world) {
+    world.client = stubServices(require('../../services'))
     t.end()
   }],
   [/^I am an admin$/, function (t, world) {
+    world.client = stubServices(require('../../services'))
     t.end()
   }],
   [/^I am a grad$/, function (t, world) {
+    world.client = stubServices(require('../../services'))
     t.end()
   }],
   [/^I am a registered user$/, function (t, world) {
     world.email = 'pietgeursen@gmail.com'
     world.client = stubServices(require('../../services'))
     world.client.accounts.getByEmail = function (email, cb) {
-      cb({email: world.email})
+      cb(null, {email: world.email})
+    }
+    world.client.accounts.verify = function (user, cb) {
+      cb(null, user)
+    }
+    world.client.user.whoami = function (cb) {
+      cb(null, 'someid')
     }
     t.ok(true)
     t.end()

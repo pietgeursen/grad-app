@@ -4,5 +4,6 @@ Feature: Hello world feature
   So that I know that the app is working 
 
   Scenario: Visiting home page 
-    Given I am on the home page
+    Given I am a potential employer 
+    When I am on the home page
     Then I should see "Hello world" as the page title

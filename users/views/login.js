@@ -8,6 +8,7 @@ module.exports = viewLogin
 
 function viewLogin (model, dispatch) {
   return html`
+  <main>
     <form onsubmit=${handleLogin}>
       <fieldset>
         <label>email</label>
@@ -19,6 +20,7 @@ function viewLogin (model, dispatch) {
       </fieldset>
       <input type='submit' value='login' />
     </form>
+  </main>
   `
 
   function handleLogin (ev) {

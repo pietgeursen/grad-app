@@ -1,3 +1,7 @@
 var start = require('./app')
+var vas = require('vas')
 
-start(document.querySelector('main'))
+var config = require('./config')
+
+var api = vas.connect(require('./services'), config, {url: config.url})
+start(document.querySelector('main'), api)
