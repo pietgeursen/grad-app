@@ -18,5 +18,4 @@ module.exports = {
   whoami,
   login,
   logout,
-  signup
-}
+signup}
