@@ -21,7 +21,8 @@
         "evalify",
         {
           "files": [
-            "**/service.js"
+            "**/service.js",
+            "**/features.js"
           ]
         }
       ],
@@ -30,9 +31,6 @@
         {
           "presets": "es2015"
         }
-      ],
-      [
-        "brfs"
       ]
     ]
   },
@@ -65,7 +63,6 @@
   "devDependencies": {
     "babel-preset-es2015": "^6.14.0",
     "babelify": "^7.3.0",
-    "brfs": "^1.4.3",
     "browserify": "^13.1.0",
     "budo": "^8.2.0",
     "cuke-tap": "github:pietgeursen/cuke-tap",

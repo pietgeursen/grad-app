@@ -1,3 +1,4 @@
+module.exports = `
 Feature: Edit grad feature
 As a graduate
 I want to update my details
@@ -18,7 +19,6 @@ So that they are correct through my lifetime as a developer
     And I click on someone else's profile 
     Then I do not have the option to edit their profile
 
-
 As an admin
 I want to update a graduates profile
 So that I can keep the site up to date without needing the graduate to update it.
@@ -31,3 +31,4 @@ So that I can keep the site up to date without needing the graduate to update it
     And I update the profile
     And I click the button to update the profile
     Then I should see that updated profile
+`

@@ -35,27 +35,15 @@ module.exports = [
   [/^I am a registered user$/, function (t, world) {
     world.email = 'pietgeursen@gmail.com'
     world.client = stubServices(require('../../services'))
-    world.client.accounts.getByEmail = function (email, cb) {
-      cb(null, {email: world.email})
-    }
-    world.client.accounts.verify = function (user, cb) {
-      cb(null, user)
-    }
-    world.client.user.whoami = function (cb) {
-      cb(null, 'someid')
-    }
+    world.client.accounts.login = (_, cb) => cb(null, 123)
+    world.client.user.whoami = () => 123
     t.ok(true)
     t.end()
   }],
   [/^I click on login$/, function (t, world) {
     pull(
       world.mainMutations,
-      pull.filter(function (mutations) {
-        return mutations.target.querySelector('#login')
-      }),
-      pull.map(function (mutation) {
-        return mutation.target.querySelector('#login')
-      }),
+      find('#login'),
       pull.drain(function (button) {
         t.ok(button.click)
         button.click()
@@ -79,26 +67,34 @@ module.exports = [
   [/^I should see "(.*)" as the page title$/, function (t, world, params) {
     pull(
       world.mainMutations,
-      pull.drain(function (mutation, done) {
-        const target = mutation.target
-        const titleElem = target.querySelector('h1')
-        t.equal(titleElem.textContent, params[1])
+      find('h1'),
+      pull.drain(function (elem) {
+        t.equal(elem.textContent, params[1])
         t.end()
         return false
       })
     )
   }],
   [/^I should see a list of graduates$/, function (t, world, params) {
-    t.plan(1)
     pull(
       world.mainMutations,
-      pull.filter(function (mutations) {
-        return mutations.target.querySelector('.grad')
-      }),
-      pull.drain(function (mutation) {
-        t.ok(mutation, 'got a mutation where child matched .grad')
+      find('.grad'),
+      pull.drain(function (elem) {
+        t.ok(elem)
+        t.end()
         return false
       })
     )
   }]
 ]
+
+function find (selector) {
+  return pull(
+    pull.filter(function (mutation) {
+      return mutation.target.querySelector(selector)
+    }),
+    pull.map(function (mutation) {
+      return mutation.target.querySelector(selector)
+    })
+  )
+}

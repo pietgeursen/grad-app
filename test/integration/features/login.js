@@ -1,3 +1,4 @@
+module.exports = `
 Feature: Login
 As a registered user
 I want to login 
@@ -10,3 +11,4 @@ So that I can change some part of the site
     And I fill out valid credentials 
 
   Scenario: An unregistered user can't login 
+`
