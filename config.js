@@ -4,7 +4,6 @@ const config = {
   port: 5000,
   url: '//localhost:5000',
   entry: join(__dirname, 'browser.js'),
-  dbPath: join(__dirname, 'db'),
   staticPath: join(__dirname, '.')
 }
 

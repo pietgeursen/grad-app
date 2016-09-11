@@ -1,16 +1,13 @@
 const vas = require('vas')
-const level = (process.env.NODE_ENV === 'test') ? require('level-mem') : require('level-party')
-
-const sub = require('subleveldown')
-const Tickets = require('ticket-auth')
-const Stack = require('stack')
 
 const service = require('./services')
 const config = require('./config')
 
-config.db = level(config.dbPath)
-const ticketsDb = sub(config.db, 'tickets', { valueEncoding: 'json' })
-const tickets = config.tickets = Tickets(ticketsDb)
+var Knex = require('knex')
+var knexConfig = require('./knexfile')[process.env.NODE_ENV || 'development']
+var knex = Knex(knexConfig)
+
+config.knex = knex
 
 vas.listen(service, config, {
   port: config.port,

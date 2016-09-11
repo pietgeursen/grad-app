@@ -3,10 +3,10 @@ const Route = require('http-routes')
 const service = {
   name: 'user',
   manifest: {
-    login: 'async',
-    logout: 'async',
-    signup: 'async',
-    whoami: 'sync'
+    find: 'async',
+    get: 'async',
+    create: 'async',
+    update: 'async'
   },
   methods: function (server, config) {
     const knex = config.knex
@@ -15,7 +15,7 @@ const service = {
       find,
       get,
       create,
-    // update,
+      update,
     // remove,
     // whoami,
     // login,
@@ -33,6 +33,9 @@ const service = {
         if (err) return cb(err)
         cb(null, results.length ? results[0] : null)
       })
+    }
+    function update (id, data, cb) {
+      knex('users').where({id}).update(data).asCallback(cb)
     }
   // signup}
   //

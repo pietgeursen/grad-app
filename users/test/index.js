@@ -19,8 +19,8 @@ test('can create a new account', function (t) {
     asyncMap(function (users, cb) {
       users.create({email}, cb)
     }),
-    asyncMap(function (result, cb) {
-      t.equal(result.rowCount, 1, 'inserted a new row')
+    asyncMap(function (results, cb) {
+      t.true(results[0] > 0, 'inserted a new row')
       knex.select().from('users').del()
         .asCallback(cb)
     }),
@@ -82,6 +82,7 @@ test('find by email', function (t) {
     })
   )
 })
+
 test('get', function (t) {
   const email = 'pietgeursen@gmail.com'
   const users = service.methods(null, config)
@@ -104,65 +105,29 @@ test('get', function (t) {
     })
   )
 })
-test('can update an account with a new email and password', function (t) {
-  const accounts = service.methods(null, config)
-  pull(
-    once(accounts),
-    asyncMap(function (accounts, cb) {
-      accounts.create(email, cb)
-    }),
-    asyncMap(function (account, cb) {
-      const newAccount = Object.assign({}, account, {email: 'cool@cool.com', password: 'derp'})
-      accounts.update(newAccount, cb)
-    }),
-    drain(function (account) {
-      t.equal(account.email, 'cool@cool.com')
-      t.end()
-    })
-  )
-})
 
-test('can verify an account with a correct password', function (t) {
+test('update', function (t) {
   const email = 'pietgeursen@gmail.com'
-  const accounts = service.methods(null, config)
+  const newEmail = 'piet@gmail.com'
+  const users = service.methods(null, config)
   pull(
-    once(accounts),
-    asyncMap(function (accounts, cb) {
-      accounts.create(email, cb)
+    once(users),
+    asyncMap(function (users, cb) {
+      users.create({email}, cb)
     }),
-    asyncMap(function (account, cb) {
-      const newAccount = Object.assign({}, account, {email: 'cool@cool.com', password: 'derp'})
-      accounts.update(newAccount, cb)
+    asyncMap(function (ids, cb) {
+      users.update(ids[0], {email: newEmail}, cb)
     }),
-    asyncMap(function (account, cb) {
-      accounts.verify({email: 'cool@cool.com', password: 'derp'}, cb)
+    asyncMap(function (ids, cb) {
+      users.find({email: newEmail}, cb)
     }),
-    drain(function (account) {
-      t.equal(account.email, 'cool@cool.com')
-      t.end()
-    })
-  )
-})
-
-test('cant verify an account with an incorrect password', function (t) {
-  const email = 'pietgeursen@gmail.com'
-  const accounts = service.methods(null, config)
-  pull(
-    once(accounts),
-    asyncMap(function (accounts, cb) {
-      accounts.create(email, cb)
+    asyncMap(function (results, cb) {
+      t.equal(results.length, 1)
+      knex.select().from('users').del()
+        .asCallback(cb)
     }),
-    asyncMap(function (account, cb) {
-      const newAccount = Object.assign({}, account, {email: 'cool@cool.com', password: 'derp'})
-      accounts.update(newAccount, cb)
-    }),
-    asyncMap(function (account, cb) {
-      accounts.verify({email: 'cool@cool.com', password: 'wrong'}, function (err) {
-        cb(null, err)
-      })
-    }),
-    drain(function (err) {
-      t.ok(err)
+    drain(function (id) {
+      t.ok(1, 'deleted all users')
       t.end()
     })
   )
