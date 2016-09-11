@@ -13,7 +13,7 @@ const service = {
 
     return {
       find,
-      // get,
+      get,
       create,
     // update,
     // remove,
@@ -22,11 +22,17 @@ const service = {
     }
 
     function create (user, cb) {
-      knex('users').insert(user).asCallback(cb)
+      knex('users').returning('id').insert(user).asCallback(cb)
     }
     function find (params, cb) {
       const _params = Object.assign({}, params)
       knex('users').where(_params).asCallback(cb)
+    }
+    function get (id, cb) {
+      find({id}, function (err, results) {
+        if (err) return cb(err)
+        cb(null, results.length ? results[0] : null)
+      })
     }
   // signup}
   //

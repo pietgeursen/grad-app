@@ -57,6 +57,53 @@ test('find with no params returns all', function (t) {
   )
 })
 
+test('find by email', function (t) {
+  const email = 'pietgeursen@gmail.com'
+  const users = service.methods(null, config)
+  pull(
+    once(users),
+    asyncMap(function (users, cb) {
+      users.create({email}, cb)
+    }),
+    asyncMap(function (result, cb) {
+      users.create({email: 'der@derp.com'}, cb)
+    }),
+    asyncMap(function (result, cb) {
+      users.find({email}, cb)
+    }),
+    asyncMap(function (results, cb) {
+      t.equal(results.length, 1, 'results have length 1')
+      knex.select().from('users').del()
+        .asCallback(cb)
+    }),
+    drain(function (id) {
+      t.ok(1, 'deleted all users')
+      t.end()
+    })
+  )
+})
+test('get', function (t) {
+  const email = 'pietgeursen@gmail.com'
+  const users = service.methods(null, config)
+  pull(
+    once(users),
+    asyncMap(function (users, cb) {
+      users.create({email}, cb)
+    }),
+    asyncMap(function (ids, cb) {
+      users.get(ids[0], cb)
+    }),
+    asyncMap(function (result, cb) {
+      t.equal(result.email, email)
+      knex.select().from('users').del()
+        .asCallback(cb)
+    }),
+    drain(function (id) {
+      t.ok(1, 'deleted all users')
+      t.end()
+    })
+  )
+})
 test('can update an account with a new email and password', function (t) {
   const accounts = service.methods(null, config)
   pull(
