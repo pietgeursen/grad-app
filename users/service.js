@@ -9,39 +9,52 @@ const service = {
     whoami: 'sync'
   },
   methods: function (server, config) {
-    const accounts = server.methods.accounts
-    const tickets = config.tickets
+    const knex = config.knex
 
     return {
-      whoami,
-      login,
-    signup}
-
-    function whoami () {
-      return this.id
+      find,
+      // get,
+      create,
+    // update,
+    // remove,
+    // whoami,
+    // login,
     }
 
-    function login (body, cb) {
-      accounts.verify(body, function (err, account) {
-        if (err) return cb(err)
-        tickets.create(account.key, function (err, ticket) {
-          if (err) return cb(err)
-          console.log('ticket', ticket)
-          cb(null, ticket)
-        })
-      })
+    function create (user, cb) {
+      knex('users').insert(user).asCallback(cb)
     }
-
-    function signup (email, cb) {
-      accounts.create(email, function (err, account) {
-        if (err) return cb(err)
-        tickets.create(account.key, function (err, ticket) {
-          if (err) return cb(err)
-          console.log('ticket', ticket)
-          cb(null, ticket)
-        })
-      })
+    function find (params, cb) {
+      const _params = Object.assign({}, params)
+      knex('users').where(_params).asCallback(cb)
     }
+  // signup}
+  //
+  //    function whoami () {
+  //      return this.id
+  //    }
+  //
+  //    function login (body, cb) {
+  //      accounts.verify(body, function (err, account) {
+  //        if (err) return cb(err)
+  //        tickets.create(account.key, function (err, ticket) {
+  //          if (err) return cb(err)
+  //          console.log('ticket', ticket)
+  //          cb(null, ticket)
+  //        })
+  //      })
+  //    }
+  //
+  //    function signup (email, cb) {
+  //      accounts.create(email, function (err, account) {
+  //        if (err) return cb(err)
+  //        tickets.create(account.key, function (err, ticket) {
+  //          if (err) return cb(err)
+  //          console.log('ticket', ticket)
+  //          cb(null, ticket)
+  //        })
+  //      })
+  //    }
   },
   handlers: (server, config) => {
     return [

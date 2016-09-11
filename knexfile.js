@@ -2,13 +2,34 @@
 
 module.exports = {
   development: {
-    client: 'sqlite3',
+    client: 'pg',
     connection: {
-      filename: './dev.sqlite3'
+      database: 'dev',
+      user: 'dev',
+      password: 'dev'
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: 'knex_migrations'
     }
   },
-
+  test: {
+    client: 'pg',
+    connection: {
+      database: 'test',
+      user: 'dev',
+      password: 'dev'
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: 'knex_migrations'
+    }
+  },
   production: process.env.DATABASE_URL
-
-
 }
