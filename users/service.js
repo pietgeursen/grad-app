@@ -8,6 +8,19 @@ const service = {
     create: 'async',
     update: 'async'
   },
+  authenticate: function (server, config) {
+    return (req, cb) => {
+      console.log('authenticating:', req)
+      cb(null, 12345)
+    }
+  },
+  permissions: function (server, config) {
+    return {
+      find: function (params, cb, ar1) {
+        console.log('checking permissions of find:', params, this, cb, ar1)
+      }
+    }
+  },
   methods: function (server, config) {
     const knex = config.knex
 
@@ -21,6 +34,7 @@ const service = {
       knex('users').returning('id').insert(user).asCallback(cb)
     }
     function find (params, cb) {
+      console.log('this of find', this)
       const _params = Object.assign({}, params)
       knex('users').where(_params).asCallback(cb)
     }
