@@ -1,4 +1,5 @@
 const { html } = require('inu')
+const { navigate } = require('inux')
 
 module.exports = user
 
@@ -9,11 +10,12 @@ function user (model, dispatch) {
 				<img src=${model.image_link} alt="image of ${model.name}">
 			</div>
 			<div>${model.name}</div>
-			<div>${model.long_description}</div>
+			<div>${model.short_description}</div>
 			<div>${model.phone}</div>
-			<div>${model.cv_link}</div>
 			<div>${model.github_link}</div>
+			<div>${model.linkedin_link}</div>
 			<div>${model.email}</div>
+      <button onclick=${() => dispatch(navigate(`users/${model.id}`))}>More...</button>
     </div>
   `
 }

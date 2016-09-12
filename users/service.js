@@ -15,11 +15,7 @@ const service = {
       find,
       get,
       create,
-      update,
-    // remove,
-    // whoami,
-    // login,
-    }
+    update}
 
     function create (user, cb) {
       knex('users').returning('id').insert(user).asCallback(cb)

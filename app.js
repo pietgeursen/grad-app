@@ -2,7 +2,8 @@ import { start, html, pull } from 'inu'
 import { App, Domain, Action, navigate } from 'inux'
 // import Account from './accounts/app'
 import Users from './users/app'
-import user from './users/views/user'
+import summary from './users/views/summary'
+import profile from './users/views/profile'
 // import login from './users/views/login'
 
 const view = (model, dispatch) => {
@@ -13,7 +14,7 @@ const view = (model, dispatch) => {
 	<h1>Hello world</h1>	
 	<ul>
 		${model.user.map(function(grad) {
-			return user(grad, dispatch) 
+			return summary(grad, dispatch) 
 		})}
 	</ul>
 	<button id="login" onclick=${() => dispatch(navigate('login'))}>Sign in</button>
@@ -31,7 +32,8 @@ const home = Domain({
   update: {},
   routes: [
     // ['/login', (_, model, dispatch) => login(model, dispatch)],
-    ['/', (params, model, dispatch) => view(model, dispatch)]
+    ['/', (params, model, dispatch) => view(model, dispatch)],
+    ['/users/:id', profile]
   ]
 })
 
