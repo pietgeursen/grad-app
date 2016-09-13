@@ -33,7 +33,7 @@ const home = Domain({
   routes: [
     // ['/login', (_, model, dispatch) => login(model, dispatch)],
     ['/', (params, model, dispatch) => view(model, dispatch)],
-    ['/users/:id', profile]
+    ['/#users/:id', profile]
   ]
 })
 

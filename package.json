@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "budo . -d --serve bundle.js --live",
-    "build": "browserify . -o bundle.js -g uglifyify",
+    "build": "NODE_ENV=production browserify . -o bundle.js -t envify -g uglifyify",
     "deps": "dependency-check . && dependency-check . --extra --no-dev",
     "test": "browserify test/integration/cuke.js | tape-run | tap-spec",
     "test:watch": "watchify test/integration/cuke.js -o '| tape-run' ",
@@ -50,6 +50,7 @@
     "budo": "^8.2.0",
     "cuke-tap": "github:pietgeursen/cuke-tap",
     "dependency-check": "^2.6.0",
+    "envify": "^3.4.1",
     "evalify": "^2.0.0",
     "feathers": "^2.0.1",
     "feathers-authentication": "^0.7.10",

@@ -15,7 +15,7 @@ function user (model, dispatch) {
 			<div>${model.github_link}</div>
 			<div>${model.linkedin_link}</div>
 			<div>${model.email}</div>
-      <button onclick=${() => dispatch(navigate(`users/${model.id}`))}>More...</button>
+      <button onclick=${() => dispatch(navigate(`#users/${model.id}`))}>More...</button>
     </div>
   `
 }
