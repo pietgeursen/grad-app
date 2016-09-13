@@ -4,13 +4,14 @@
   "description": "it's a real sweet app",
   "main": "index.js",
   "scripts": {
-    "start": "budo . -d --serve bundle.js --live",
-    "build": "NODE_ENV=production browserify . -o bundle.js -t envify -g uglifyify",
+    "start": "budo index.js -d --serve bundle.js --live",
+    "start:production": " budo index.js -d --serve bundle.js --live -- -t [envify --NODE_ENV production]",
+    "build": "NODE_ENV=production browserify index.js -o bundle.js -t envify -g uglifyify",
     "deps": "dependency-check . && dependency-check . --extra --no-dev",
     "test": "browserify test/integration/cuke.js | tape-run | tap-spec",
     "test:watch": "watchify test/integration/cuke.js -o '| tape-run' ",
     "test:debug": "budo test/integration/cuke.js -d --serve bundle.js --live ",
-    "dist": "mkdir -p dist && bash -c 'cp *.{js,html,css} dist'",
+    "dist": "mkdir -p dist && bash -c 'cp *.{html,css} dist' && bash -c 'cp bundle.js dist'",
     "push": "gh-pages -d dist",
     "deploy": "npm run build && npm run dist && npm run push"
   },
