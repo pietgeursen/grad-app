@@ -20,7 +20,7 @@ function User ({ api }) {
     run: {
       [GET]: () => {
         return pullAsync(cb => {
-          api.user.find({}, (err, users) => {
+          api.service('grads').find({}, (err, users) => {
             console.log(err, users)
             if (err) return console.error(err)
             cb(null, set(users))
