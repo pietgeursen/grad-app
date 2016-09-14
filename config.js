@@ -10,7 +10,7 @@ const config = {
 
 if (process.env.NODE_ENV === 'production') {
   config.port = process.env.PORT
-  config.host = 'http://grad-app-server-dev.ap-southeast-2.elasticbeanstalk.com/',
+  config.host = 'https://grad-app-server-dev.ap-southeast-2.elasticbeanstalk.com/',
   config.url = '//staging.holodex.is',
   config.letsencrypt = {
     path: join(__dirname, 'letsencrypt'),
