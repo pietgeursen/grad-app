@@ -24,10 +24,7 @@ const view = (model, dispatch) => {
 const home = Domain({
   name: 'home',
   init: () => ({
-    model: {grads: [
-        {name: 'Piet'},
-        {name: 'Katie'}
-    ]}
+    model: {}
   }),
   update: {},
   routes: [

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "budo index.js -d --serve bundle.js --live",
-    "start:production": " budo index.js -d --serve bundle.js --live -- -t [envify --NODE_ENV production]",
+    "start:production": " wzrd index.js:bundle.js --https -- -t [envify --NODE_ENV production]",
     "build": "NODE_ENV=production browserify index.js -o bundle.js -t envify -g uglifyify",
     "deps": "dependency-check . && dependency-check . --extra --no-dev",
     "test": "browserify test/integration/cuke.js | tape-run | tap-spec",
