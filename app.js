@@ -24,13 +24,15 @@ const view = (model, dispatch) => {
 const home = Domain({
   name: 'home',
   init: () => ({
-    model: {}
+    model: {
+    }
+
   }),
   update: {},
   routes: [
     // ['/login', (_, model, dispatch) => login(model, dispatch)],
-    ['/', (params, model, dispatch) => view(model, dispatch)],
-    ['/#users/:id', profile]
+    ['/users/:id', profile],
+    ['/', (params, model, dispatch) => view(model, dispatch)]
   ]
 })
 
