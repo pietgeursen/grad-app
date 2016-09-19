@@ -5,7 +5,6 @@ import summary from './grads/views/summary'
 import profile from './grads/views/profile'
 
 const view = (model, dispatch) => {
-  console.log(model)
   return html` 
 
 <main>

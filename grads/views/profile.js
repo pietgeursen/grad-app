@@ -22,7 +22,7 @@ function grad ({id}, model, dispatch) {
           <div>${grad.github_link}</div>
           <div>${grad.linkedin_link}</div>
           <div>${grad.email}</div>
-          <button onclick=${() => dispatch(navigate(`/`))}>Back</button>
+          <button id="home" onclick=${() => dispatch(navigate(`/`))}>Back</button>
         </div>
         `
        : html`<h2>We got no grads</h2>` }

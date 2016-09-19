@@ -15,7 +15,7 @@ function grads (model, dispatch) {
 			<div>${model.github_link}</div>
 			<div>${model.linkedin_link}</div>
 			<div>${model.email}</div>
-      <button onclick=${() => dispatch(navigate(`grads/${model.id}`))}>More...</button>
+      <button class="view-grad" onclick=${() => dispatch(navigate(`grads/${model.id}`))}>More...</button>
     </div>
   `
 }
