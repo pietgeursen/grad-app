@@ -1,10 +1,8 @@
 import { start, html, pull } from 'inu'
 import { App, Domain, Action, navigate } from 'inux'
-// import Account from './accounts/app'
-import Users from './users/app'
-import summary from './users/views/summary'
-import profile from './users/views/profile'
-// import login from './users/views/login'
+import Grads from './grads/app'
+import summary from './grads/views/summary'
+import profile from './grads/views/profile'
 
 const view = (model, dispatch) => {
   console.log(model)
@@ -13,7 +11,7 @@ const view = (model, dispatch) => {
 <main>
 	<h1>Hello world</h1>	
 	<ul>
-		${model.user.map(function(grad) {
+		${model.grads.map(function(grad) {
 			return summary(grad, dispatch) 
 		})}
 	</ul>
@@ -30,8 +28,7 @@ const home = Domain({
   }),
   update: {},
   routes: [
-    // ['/login', (_, model, dispatch) => login(model, dispatch)],
-    ['/users/:id', profile],
+    ['/grads/:id', profile],
     ['/', (params, model, dispatch) => view(model, dispatch)]
   ]
 })
@@ -40,7 +37,7 @@ module.exports = function startApp (elem, api) {
   const app = App([
     home,
     // Account({ api}),
-    Users({ api})
+    Grads({ api })
   ])
   const sources = start(app)
 
