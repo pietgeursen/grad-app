@@ -5,25 +5,24 @@ const pullAsync = require('pull-async')
 const { SET, set } = require('./actions')
 const { GET, get} = require('./effects')
 
-module.exports = User
+module.exports = Grads
 
-function User ({ api }) {
+function Grads ({ api }) {
   return Domain({
-    name: 'user',
+    name: 'grads',
     init: () => ({
       model: [],
       effect: get()
     }),
     update: {
-      [SET]: (model, users) => ({ model: users })
+      [SET]: (model, grads) => ({ model: grads })
     },
     run: {
       [GET]: () => {
         return pullAsync(cb => {
-          api.service('grads').find({}, (err, users) => {
-            console.log(err, users)
+          api.service('grads').find({}, (err, grads) => {
             if (err) return console.error(err)
-            cb(null, set(users))
+            cb(null, set(grads))
           })
         })
       }

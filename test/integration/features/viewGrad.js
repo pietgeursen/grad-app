@@ -8,5 +8,5 @@ So that I can decide if they are a good candidate for my role
     Given I am a potential employer 
     When I am on the home page
     And I click on a grad's profile
-    Then I should see that grad's profile page 
+    Then I should see a grad's profile page 
 `

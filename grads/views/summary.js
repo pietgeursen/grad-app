@@ -1,9 +1,9 @@
 const { html } = require('inu')
 const { navigate } = require('inux')
 
-module.exports = user
+module.exports = grads
 
-function user (model, dispatch) {
+function grads (model, dispatch) {
   return html`
     <div class='grad'>
 			<div class="grad-image">
@@ -15,7 +15,7 @@ function user (model, dispatch) {
 			<div>${model.github_link}</div>
 			<div>${model.linkedin_link}</div>
 			<div>${model.email}</div>
-      <button onclick=${() => dispatch(navigate(`users/${model.id}`))}>More...</button>
+      <button class="view-grad" onclick=${() => dispatch(navigate(`grads/${model.id}`))}>More...</button>
     </div>
   `
 }
