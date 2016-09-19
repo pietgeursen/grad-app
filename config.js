@@ -10,8 +10,8 @@ const config = {
 
 if (process.env.NODE_ENV === 'production') {
   config.port = process.env.PORT
-  config.host = 'https://grad-app-server-dev.ap-southeast-2.elasticbeanstalk.com/',
-  config.url = '//pietgeursen.github.io/grad-app',
+  config.host = 'https://api.devacademygrads.co.nz'
+  config.url = '//pietgeursen.github.io/grad-app'
   config.letsencrypt = {
     path: join(__dirname, 'letsencrypt'),
     host: 'staging.holodex.is',
