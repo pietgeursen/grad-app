@@ -8,13 +8,13 @@ const view = (model, dispatch) => {
   return html` 
 
 <main>
-	<h1>Hello world</h1>	
-	<ul>
+  <div class="row">
+    <div class="medium-8 columns">
 		${model.grads.map(function(grad) {
 			return summary(grad, dispatch) 
 		})}
-	</ul>
-	<button id="login" onclick=${() => dispatch(navigate('login'))}>Sign in</button>
+    </div>
+  </div>
 </main>
 `}
 
