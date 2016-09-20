@@ -15,8 +15,8 @@ function grad ({id}, model, dispatch) {
           <div class="grad-image">
             <img src=${grad.image_link} alt="image of ${grad.name}">
           </div>
-          <div>${grad.name}</div>
-          <div>${grad.long_description}</div>
+          <h2>${grad.name}</h2>
+          <p>${grad.long_description}</p>
           <div>${grad.phone}</div>
           <div>${grad.cv_link}</div>
           <div>${grad.github_link}</div>
