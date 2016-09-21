@@ -15,7 +15,12 @@ function Grads ({ api }) {
       effect: get()
     }),
     update: {
-      [SET]: (model, grads) => ({ model: grads })
+      [SET]: (model, grads) => {
+        return { model: grads.map((grad) => {
+          grad.skills = grad.skills.split(' ') 
+          return grad
+        })}
+      }
     },
     run: {
       [GET]: () => {

@@ -6,12 +6,12 @@ module.exports = selector
 function selector (model, dispatch) {
   return html`
     <div>
-      <ul class="dropdown menu">
-        ${model.availableSkills.map((skill) => (
+      <ul class="dropdown menu vertical">
+        ${Object.keys(model).map((skill) => (
           html`
           <li onclick=${() => dispatch(toggle(skill))}>
             ${skill}
-            <input type="checkbox" ${(model.selectedSkills[skill]) ? 'checked' : null}>
+            <input type="checkbox" ${(model[skill]) ? 'checked' : null}>
           </li>`
         ))}
       </ul>

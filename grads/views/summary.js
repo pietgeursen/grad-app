@@ -25,8 +25,9 @@ function grads (model, dispatch) {
       <div class="small-2 columns">
         <h3>Skills</h3>
         <ul>
-          <li>Rails</li>
-          <li>Node</li>
+          ${model.skills.map((skill) => (
+            html`<li>${skill}</li>`
+          ))}
         </ul>
       </div> 
     </div>
