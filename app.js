@@ -1,13 +1,18 @@
 import { start, html, pull } from 'inu'
 import { App, Domain, Action, navigate } from 'inux'
 import Grads from './grads/app'
+import Skills from './skills/app'
 import summary from './grads/views/summary'
+import skillSelector from './skills/views/selector'
 import profile from './grads/views/profile'
 
 const view = (model, dispatch) => {
   return html` 
 
 <main>
+  <div class="row">
+    ${skillSelector(model.skills, dispatch)} 
+  </div>
   <div class="row">
     <div class="medium-8 columns">
 		${model.grads.map(function(grad) {
@@ -36,7 +41,8 @@ module.exports = function startApp (elem, api) {
   const app = App([
     home,
     // Account({ api}),
-    Grads({ api })
+    Grads({ api }),
+    Skills({ api })
   ])
   const sources = start(app)
 

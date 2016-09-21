@@ -64,6 +64,7 @@
     "inux": "github:ahdinosaur/inux#navigate",
     "pull-async": "^1.0.0",
     "pull-dom-mutants": "^1.0.1",
+    "seamless-immutable": "^6.1.1",
     "superagent": "^2.2.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1",
