@@ -13,7 +13,7 @@ function Skills ({ api }) {
   return Domain({
     name: 'skills',
     init: () => ({
-      model: {Rails: false, Node: false, Express: false, Python: false, Scala: false}
+      model: {}
     }),
     update: {
       [SET]: (model, skills) => ({ model: skills }),
