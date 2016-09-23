@@ -1,26 +1,26 @@
 const { html } = require('inu')
-const { selectedSkills } = require('../selectors')
+const { filtersSelector, allSkillsSelector } = require('../selectors')
 const { toggleFilter, resetFilter, hideFilter } = require('../actions')
 
 module.exports = filters
 
 function filters (model, dispatch) {
-  console.log(model.grads.get('grads'))
-  const skills = selectedSkills(model.grads)
+  const allSkills = allSkillsSelector(model.grads)
+  const requiredSkills = filtersSelector(model.grads)
   return html`
   <div>
     <div onclick=${() => dispatch(hideFilter())} > Skills </div>
     <ul class="menu vertical" >
       <li onclick=${() => dispatch(resetFilter())}>
         All
-        <input type='checkbox' ${skills.every((value) => !value) ? 'checked' : null} >
+        <input type='checkbox' ${requiredSkills.size === 0 ? 'checked' : null} >
       </li>
-      ${skills.map((selected, skill) => (
+      ${allSkills.map((skill) => (
         html`<li onclick=${() => dispatch(toggleFilter(skill))}>
           ${skill}
-          <input type='checkbox' ${selected ? 'checked' : null} >
+          <input type='checkbox' ${requiredSkills.has(skill) ? 'checked' : null} >
         </li>`
-      )).toList().toJS()}
+      )).toJS()}
     </ul>
   </div>
   `

@@ -1,11 +1,11 @@
 const { html } = require('inu')
 const { navigate } = require('inux')
-const { skilledGrads } = require('../selectors')
+const { skilledGradsSelector } = require('../selectors')
 
 module.exports = summary
 
 function summary (model, dispatch) {
-  const grads = skilledGrads(model.grads).toJS()
+  const grads = skilledGradsSelector(model.grads).toJS()
   return grads.map(function(grad) {
     return html`
       <div class="grad row callout secondary">
