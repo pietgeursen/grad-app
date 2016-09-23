@@ -20,7 +20,7 @@ function filters (model, dispatch) {
           ${skill}
           <input type='checkbox' ${requiredSkills.has(skill) ? 'checked' : null} >
         </li>`
-      )).toJS()}
+      )).toArray()}
     </ul>
   </div>
   `
