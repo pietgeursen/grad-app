@@ -12,12 +12,6 @@ if (process.env.NODE_ENV === 'production') {
   config.port = process.env.PORT
   config.host = 'https://api.devacademygrads.co.nz'
   config.url = '//pietgeursen.github.io/grad-app'
-  config.letsencrypt = {
-    path: join(__dirname, 'letsencrypt'),
-    host: 'staging.holodex.is',
-    email: 'michael.williams@enspiral.com',
-    agreeTos: true
-  }
 }
 
 module.exports = config
