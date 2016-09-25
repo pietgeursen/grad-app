@@ -4,9 +4,11 @@ import Immutable, { Set } from 'immutable'
 import classnames from 'classnames'
 
 import Grads from './grads/app'
+import User from './user/app'
 import summary from './grads/views/summary'
 import profile from './grads/views/profile'
 import filters from './grads/views/filters'
+import login from './user/views/login'
 
 const view = (model, dispatch) => {
 
@@ -19,6 +21,9 @@ const view = (model, dispatch) => {
         <div class="medium-8 columns">
           ${summary(model, dispatch)}
         </div>
+      </div>
+      <div> 
+        ${login(model, dispatch)}
       </div>
     </main>
 `}
@@ -41,6 +46,7 @@ module.exports = function startApp (elem, api) {
   const app = App([
     home,
     // Account({ api}),
+    User({ api }),
     Grads({ api })
   ])
   const sources = start(app)
