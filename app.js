@@ -11,7 +11,6 @@ import filters from './grads/views/filters'
 import login from './user/views/login'
 
 const view = (model, dispatch) => {
-
   return html`
     <main>
       <div class="row">
@@ -23,7 +22,7 @@ const view = (model, dispatch) => {
         </div>
       </div>
       <div> 
-        ${login(model, dispatch)}
+        <button onclick=${() => dispatch(navigate('/login'))}>Login</button>
       </div>
     </main>
 `}
@@ -38,6 +37,7 @@ const home = Domain({
   update: {},
   routes: [
     ['/grads/:id', profile],
+    ['/login', (params, model, dispatch) => login(model, dispatch)],
     ['/', (params, model, dispatch) => view(model, dispatch)]
   ]
 })
@@ -45,7 +45,6 @@ const home = Domain({
 module.exports = function startApp (elem, api) {
   const app = App([
     home,
-    // Account({ api}),
     User({ api }),
     Grads({ api })
   ])
