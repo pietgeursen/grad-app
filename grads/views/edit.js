@@ -49,7 +49,7 @@ function edit ({id}, {grads}, dispatch) {
           </fieldset>
           <fieldset>
             <label>skills</label>
-            <input name='skills' type='text' value=${grad.get('skills')} />
+            <input name='skills' type='text' value=${grad.get('skills').toArray().join(" ")} />
           </fieldset>
           <input type='submit' value='Update' />
         </form>

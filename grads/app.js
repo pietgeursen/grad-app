@@ -56,7 +56,9 @@ function Grads ({ api }) {
       },
       [UPDATE]: (grad) => {
         return pullAsync(cb => {
-          api.service('grads').patch(grad.id, grad, cb) 
+          api.service('grads').patch(grad.id, grad, (err, res) => {
+            cb(err, run(get())) 
+          }) 
         }) 
       }
     }
