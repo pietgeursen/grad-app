@@ -1,8 +1,7 @@
 const { pull } = require('inu')
-const { Domain, run } = require('inux')
+const { Domain, run, navigate } = require('inux')
 const pullAsync = require('pull-async')
 const { List, Set, Map } = require('immutable')
-const fromPromise = require('pull-promise/source')
 
 const { SET, set, SET_ERROR, setError } = require('./actions')
 const { LOGIN } = require('./effects')
@@ -20,7 +19,6 @@ function User ({ api }) {
     }),
     update: {
       [SET]: (model, user) => {
-        console.log(user)
         return {model: 
           model
             .set('user', Map(user))
@@ -39,12 +37,13 @@ function User ({ api }) {
           pullAsync(cb => {
             api.authenticate(credentials)
             .then((res) => {
-              cb(null, set(res.data))
+              cb(null, [set(res.data), navigate(`/grads/${res.data.grad.id}/edit`)])
             })
             .catch((err) => {
-              cb(null, setError(err))// need an error action here. 
+              cb(null, [setError(err)]) 
             })
           }),
+          pull.flatten()
             
         ) 
       }

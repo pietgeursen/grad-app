@@ -5,7 +5,7 @@ const Immutable = require('immutable')
 const { List, Set, Map } = require('immutable')
 
 const { SET, set, TOGGLE_FILTER, RESET_FILTER, HIDE_FILTER } = require('./actions')
-const { GET, get } = require('./effects')
+const { GET, get, UPDATE } = require('./effects')
 
 module.exports = Grads
 
@@ -47,12 +47,17 @@ function Grads ({ api }) {
             grads = Immutable.fromJS(grads)
             grads = grads.map((grad) => {
               return grad.update('skills', (skills) => {
-                return List(skills.split(' '))
+                return List(skills ? skills.split(' ') : [''] )
               })
             })
             cb(null, set(grads))
           })
         })
+      },
+      [UPDATE]: (grad) => {
+        return pullAsync(cb => {
+          api.service('grads').patch(grad.id, grad, cb) 
+        }) 
       }
     }
   })

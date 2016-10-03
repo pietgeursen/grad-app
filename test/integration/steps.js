@@ -11,6 +11,7 @@ const grad = {
   image_link: 'http://26.media.tumblr.com/tumblr_lh3j390T241qfyzelo1_1280.jpg',
   github_link: 'https://github.com/pietgeursen',
   phone: '+6427424333',
+  skills: "Node Rails",
   short_description: 'Learning fiend, teacher, coder',
   long_description: `Kia ora.. Left my scooter outside the dairy, this bloody scarfie is as chronic as a rough as guts bloke. Mean while, in West Auckland, Sir Edmond Hillary and Jim Hickey were up to no good with a bunch of thermo-nuclear marmite shortages. Fully, spit the dummy. The chocka full force of his playing rugby was on par with Bazza's fully sick chilly bin. I was just at home having some dots...., rack off.`
 }
@@ -82,17 +83,6 @@ module.exports = [
     startApp(main, world.client)
     t.ok(true)
     t.end()
-  }],
-  [/^I should see "(.*)" as the page title$/, function (t, world, params) {
-    pull(
-      world.mainMutations,
-      find('h1'),
-      pull.drain(function (elem) {
-        t.equal(elem.textContent, params[1])
-        t.end()
-        return false
-      })
-    )
   }],
   [/^I should see a grad's profile page$/, function (t, world) {
     const homeButton = world.main.querySelector('#home')
