@@ -66,6 +66,7 @@
     "inux": "github:pietgeursen/inux#navigate-next-tick",
     "pull-async": "^1.0.0",
     "pull-dom-mutants": "^1.0.1",
+    "pull-many": "^1.0.6",
     "pull-promise": "^2.0.0",
     "pull-pushable": "^2.0.1",
     "reselect": "^2.5.4",

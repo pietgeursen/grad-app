@@ -9,6 +9,7 @@ So that I can change some part of the site
     When I am on the home page
     And I click on login 
     And I fill out valid credentials 
+    Then I should see a form to edit my profile
 
   Scenario: An unregistered user can't login 
 `

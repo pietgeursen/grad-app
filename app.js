@@ -33,7 +33,7 @@ const view = (model, dispatch) => {
         </div>
       </div>
       <div> 
-        <button onclick=${() => dispatch(navigate('/login'))}>Login</button>
+        <button id="login" onclick=${() => dispatch(navigate('/login'))}>Login</button>
       </div>
       <footer>
         <div class="row">

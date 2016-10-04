@@ -18,7 +18,7 @@ function edit ({id}, {grads}, dispatch) {
   return html`<main>
       ${grad 
         ? html `
-        <form onsubmit=${handleSubmit}>
+        <form id="edit-grad" onsubmit=${handleSubmit}>
           <fieldset>
             <label>image link</label>
             <input name='image_link' type='text' value=${grad.get('image_link')} />

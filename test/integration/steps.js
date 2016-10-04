@@ -1,6 +1,7 @@
 var pull = require('pull-stream')
 var {once, asyncMap, drain} = require('pull-stream')
 var domMutant = require('pull-dom-mutants')
+var many = require('pull-many')
 
 var startApp = require('../../app')
 
@@ -14,6 +15,12 @@ const grad = {
   skills: 'Node Rails',
   short_description: 'Learning fiend, teacher, coder',
   long_description: `Kia ora.. Left my scooter outside the dairy, this bloody scarfie is as chronic as a rough as guts bloke. Mean while, in West Auckland, Sir Edmond Hillary and Jim Hickey were up to no good with a bunch of thermo-nuclear marmite shortages. Fully, spit the dummy. The chocka full force of his playing rugby was on par with Bazza's fully sick chilly bin. I was just at home having some dots...., rack off.`
+}
+
+const user = {
+  id: 2,
+  email: 'piet@derp.com',
+  grad
 }
 
 function mockClient (services) {
@@ -50,18 +57,30 @@ module.exports = [
   }],
   [/^I am a registered user$/, function (t, world) {
     world.email = 'pietgeursen@gmail.com'
+    const gradsService = mockService([grad])
+    const usersService = mockService([user])
+    const authenticate =  () => (
+      Promise.resolve({data: user}) 
+    )
+    world.client = mockClient({
+      grads: gradsService, 
+      users: usersService, 
+    })
+    world.client.authenticate = authenticate
     t.ok(true)
     t.end()
   }],
   [/^I click on login$/, function (t, world) {
+    const loginSelector = '#login'
     pull(
       world.mainMutations,
-      find('#login'),
-      pull.drain(function (button) {
-        t.ok(button.click)
+      find(loginSelector),
+      pull.drain((button) => {
+        t.ok(button) 
         button.click()
         t.end()
-      })
+        return false
+      }) 
     )
   }],
   [/^I click on a grad's profile$/, function (t, world) {
@@ -77,11 +96,22 @@ module.exports = [
     )
   }],
   [/^I fill out valid credentials$/, function (t, world) {
-    t.end()
+    pull(
+      world.mainMutations,
+      find('input[type="submit"]'),
+      pull.drain(function (button) {
+        t.ok(button.click)
+        button.click()
+        t.end()
+        return false
+      })
+    )
   }],
   [/^I am on the home page$/, function (t, world) {
     const window = require('global/window')
+    world.window = window
     const main = window.document.createElement('main')
+    window.history.pushState({}, null, '/')
     window.document.body.appendChild(main)
     world.main = main
     world.mainMutations = domMutant(main, {window})
@@ -104,7 +134,20 @@ module.exports = [
         return false
       })
     )
+  }],
+  [/^I should see a form to edit my profile$/, function(t, world, params) {
+    const form = world.main.querySelector('#edit-grad')
+    pull(
+      domMutant(world.main, {window: world.window}),
+      find('#edit-grad'),
+      pull.drain(function (form) {
+        t.ok(form)
+        t.end()
+        return false
+      })
+    )
   }]
+    
 ]
 
 function find (selector) {
@@ -116,4 +159,7 @@ function find (selector) {
       return mutation.target.querySelector(selector)
     })
   )
+}
+function findAll(selector) {
+  
 }
