@@ -9,8 +9,8 @@ function grad ({id}, model, dispatch) {
   })
   return html`
   <main>
-      ${grad ?
-        html`
+      ${grad
+        ? html`
         <div class='grad'>
           <div class="grad-image">
             <img src=${grad.get('image_link')} alt="image of ${grad.get('name')}">

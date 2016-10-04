@@ -26,5 +26,4 @@ module.exports = {
   UPDATED,
   updated,
   CREATED,
-  created
-}
+  created}

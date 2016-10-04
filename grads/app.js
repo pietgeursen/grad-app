@@ -1,11 +1,10 @@
-const {pull} = require('inu')
 const Push = require('pull-pushable')
 const { Domain, run } = require('inux')
 const pullAsync = require('pull-async')
 const Immutable = require('immutable')
 const { List, Set, Map } = require('immutable')
 
-const { SET, set, TOGGLE_FILTER, RESET_FILTER, HIDE_FILTER, UPDATED, updated, CREATED, created} = require('./actions')
+const { SET, set, TOGGLE_FILTER, RESET_FILTER, HIDE_FILTER, UPDATED, updated, CREATED, created } = require('./actions')
 const { GET, get, UPDATE, INIT, init } = require('./effects')
 
 module.exports = Grads
@@ -40,31 +39,31 @@ function Grads ({ api }) {
       },
       [UPDATED]: (model, updatedGrad) => {
         const gradIndex = model.get('grads').findKey((grad) => grad.get('id') === updatedGrad.get('id'))
-        return {model: model.setIn(['grads', gradIndex], updatedGrad)} 
+        return {model: model.setIn(['grads', gradIndex], updatedGrad)}
       },
-      [CREATED]: (model, createdGrad)=> {
-        return {model: model.updateIn(['grads'], (grads) => grads.push(createdGrad))} 
+      [CREATED]: (model, createdGrad) => {
+        return {model: model.updateIn(['grads'], (grads) => grads.push(createdGrad))}
       }
 
     },
     run: {
       [INIT]: () => {
         const p = Push()
-        api.service('grads').on('updated', pushUpdatedGrad) 
-        api.service('grads').on('patched', pushUpdatedGrad ) 
+        api.service('grads').on('updated', pushUpdatedGrad)
+        api.service('grads').on('patched', pushUpdatedGrad)
         api.service('grads').on('created', (grad) => {
-          const newGrad = immutableGrad(grad) 
+          const newGrad = immutableGrad(grad)
           p.push(created(newGrad))
-        }) 
+        })
         p.push(run(get()))
         return p
 
-        function immutableGrad(grad) {
+        function immutableGrad (grad) {
           grad = Immutable.fromJS(grad)
           return splitGradSkills(grad)
         }
-        function pushUpdatedGrad(grad){
-          const newGrad = immutableGrad(grad) 
+        function pushUpdatedGrad (grad) {
+          const newGrad = immutableGrad(grad)
           p.push(updated(newGrad))
         }
       },
@@ -79,13 +78,13 @@ function Grads ({ api }) {
         })
       },
       [UPDATE]: (grad) => {
-        api.service('grads').patch(grad.id, grad, console.log )
+        api.service('grads').patch(grad.id, grad, console.log)
       }
     }
   })
 }
 
-function splitGradSkills(grad) {
+function splitGradSkills (grad) {
   return grad.update('skills', (skills) => {
     return List(skills ? skills.split(' ') : [''])
   })

@@ -14,5 +14,4 @@ module.exports = {
   UPDATE,
   update,
   INIT,
-  init
-}
+  init}

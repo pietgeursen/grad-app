@@ -16,7 +16,7 @@ function edit ({id}, {grads}, dispatch) {
     dispatch(run(update(formData)))
   }
   return html`<main>
-      ${grad 
+      ${grad
         ? html `
         <form id="edit-grad" onsubmit=${handleSubmit}>
           <fieldset>

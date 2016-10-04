@@ -10,5 +10,4 @@ module.exports = {
   SET,
   set,
   SET_ERROR,
-  setError
-}
+  setError}

@@ -1,7 +1,7 @@
 const { pull } = require('inu')
-const { Domain, run, navigate } = require('inux')
+const { Domain, navigate } = require('inux')
 const pullAsync = require('pull-async')
-const { List, Set, Map } = require('immutable')
+const { Map } = require('immutable')
 
 const { SET, set, SET_ERROR, setError } = require('./actions')
 const { LOGIN } = require('./effects')
@@ -19,8 +19,7 @@ function User ({ api }) {
     }),
     update: {
       [SET]: (model, user) => {
-        return {model:
-          model
+        return {model: model
             .set('user', Map(user))
             .set('loggedIn', true)
             .set('error', null)
@@ -36,12 +35,12 @@ function User ({ api }) {
         return pull(
           pullAsync(cb => {
             api.authenticate(credentials)
-            .then((res) => {
-              cb(null, [set(res.data), navigate(`/grads/${res.data.grad.id}/edit`)])
-            })
-            .catch((err) => {
-              cb(null, [setError(err)])
-            })
+              .then((res) => {
+                cb(null, [set(res.data), navigate(`/grads/${res.data.grad.id}/edit`)])
+              })
+              .catch((err) => {
+                cb(null, [setError(err)])
+              })
           }),
           pull.flatten()
 

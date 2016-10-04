@@ -25,4 +25,3 @@ function filters (model, dispatch) {
   </div>
   `
 }
-

@@ -1,7 +1,6 @@
 var pull = require('pull-stream')
-var {once, asyncMap, drain} = require('pull-stream')
+var { drain } = require('pull-stream')
 var domMutant = require('pull-dom-mutants')
-var many = require('pull-many')
 
 var startApp = require('../../app')
 
@@ -20,24 +19,23 @@ const grad = {
 const user = {
   id: 2,
   email: 'piet@derp.com',
-  grad
-}
+  grad}
 
 function mockClient (services) {
   return {
     service: (serviceName) => (
-      services[serviceName]
+    services[serviceName]
     )
   }
 }
 function mockService (resource) {
-  var emitter
+  var emitters = {}
   return {
     find: (o, cb) => (
-      cb(null, resource)
+    cb(null, resource)
     ),
     on: (ev, cb) => (
-      emitter = cb 
+    emitters[ev] = cb
     )
   }
 }
@@ -59,12 +57,12 @@ module.exports = [
     world.email = 'pietgeursen@gmail.com'
     const gradsService = mockService([grad])
     const usersService = mockService([user])
-    const authenticate =  () => (
-      Promise.resolve({data: user}) 
+    const authenticate = () => (
+    Promise.resolve({data: user})
     )
     world.client = mockClient({
-      grads: gradsService, 
-      users: usersService, 
+      grads: gradsService,
+      users: usersService
     })
     world.client.authenticate = authenticate
     t.ok(true)
@@ -75,19 +73,19 @@ module.exports = [
     pull(
       world.mainMutations,
       find(loginSelector),
-      pull.drain((button) => {
-        t.ok(button) 
+      drain((button) => {
+        t.ok(button)
         button.click()
         t.end()
         return false
-      }) 
+      })
     )
   }],
   [/^I click on a grad's profile$/, function (t, world) {
     pull(
       world.mainMutations,
       find('.view-grad'),
-      pull.drain(function (button) {
+      drain(function (button) {
         t.ok(button.click)
         button.click()
         t.end()
@@ -99,7 +97,7 @@ module.exports = [
     pull(
       world.mainMutations,
       find('input[type="submit"]'),
-      pull.drain(function (button) {
+      drain(function (button) {
         t.ok(button.click)
         button.click()
         t.end()
@@ -128,26 +126,25 @@ module.exports = [
     pull(
       world.mainMutations,
       find('.grad'),
-      pull.drain(function (elem) {
+      drain(function (elem) {
         t.ok(elem)
         t.end()
         return false
       })
     )
   }],
-  [/^I should see a form to edit my profile$/, function(t, world, params) {
-    const form = world.main.querySelector('#edit-grad')
+  [/^I should see a form to edit my profile$/, function (t, world, params) {
     pull(
       domMutant(world.main, {window: world.window}),
       find('#edit-grad'),
-      pull.drain(function (form) {
+      drain(function (form) {
         t.ok(form)
         t.end()
         return false
       })
     )
   }]
-    
+
 ]
 
 function find (selector) {
@@ -159,7 +156,4 @@ function find (selector) {
       return mutation.target.querySelector(selector)
     })
   )
-}
-function findAll(selector) {
-  
 }

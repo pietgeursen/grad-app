@@ -5,5 +5,4 @@ const login = Effect(LOGIN)
 
 module.exports = {
   LOGIN,
-  login
-}
+  login}
