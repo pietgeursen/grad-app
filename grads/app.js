@@ -5,7 +5,7 @@ const pullAsync = require('pull-async')
 const Immutable = require('immutable')
 const { List, Set, Map } = require('immutable')
 
-const { SET, set, TOGGLE_FILTER, RESET_FILTER, HIDE_FILTER, PATCHED, patched} = require('./actions')
+const { SET, set, TOGGLE_FILTER, RESET_FILTER, HIDE_FILTER, UPDATED, updated, CREATED, created} = require('./actions')
 const { GET, get, UPDATE, INIT, init } = require('./effects')
 
 module.exports = Grads
@@ -38,22 +38,35 @@ function Grads ({ api }) {
       [HIDE_FILTER]: (model, filter) => {
         return {model: model.updateIn(['skillFilters', 'hidden'], (hidden) => !hidden)}
       },
-      [PATCHED]: (model, patchedGrad) => {
-        const gradIndex = model.get('grads').findKey((grad) => grad.get('id') === patchedGrad.get('id'))
-        return {model: model.setIn(['grads', gradIndex], patchedGrad)} 
+      [UPDATED]: (model, updatedGrad) => {
+        const gradIndex = model.get('grads').findKey((grad) => grad.get('id') === updatedGrad.get('id'))
+        return {model: model.setIn(['grads', gradIndex], updatedGrad)} 
+      },
+      [CREATED]: (model, createdGrad)=> {
+        return {model: model.updateIn(['grads'], (grads) => grads.push(createdGrad))} 
       }
 
     },
     run: {
       [INIT]: () => {
         const p = Push()
-        api.service('grads').on('patched', (grad)=> {
-          grad = Immutable.fromJS(grad)
-          grad = splitGradSkills(grad)
-          p.push(patched(grad))
+        api.service('grads').on('updated', pushUpdatedGrad) 
+        api.service('grads').on('patched', pushUpdatedGrad ) 
+        api.service('grads').on('created', (grad) => {
+          const newGrad = immutableGrad(grad) 
+          p.push(created(newGrad))
         }) 
         p.push(run(get()))
         return p
+
+        function immutableGrad(grad) {
+          grad = Immutable.fromJS(grad)
+          return splitGradSkills(grad)
+        }
+        function pushUpdatedGrad(grad){
+          const newGrad = immutableGrad(grad) 
+          p.push(updated(newGrad))
+        }
       },
       [GET]: () => {
         return pullAsync(cb => {
