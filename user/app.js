@@ -15,11 +15,11 @@ function User ({ api }) {
       model: Map({
         loggedIn: false,
         user: Map()
-      }),
+      })
     }),
     update: {
       [SET]: (model, user) => {
-        return {model: 
+        return {model:
           model
             .set('user', Map(user))
             .set('loggedIn', true)
@@ -27,7 +27,7 @@ function User ({ api }) {
         }
       },
       [SET_ERROR]: (model, error) => {
-        return {model: model.set('error', error)} 
+        return {model: model.set('error', error)}
       }
     },
     run: {
@@ -40,12 +40,12 @@ function User ({ api }) {
               cb(null, [set(res.data), navigate(`/grads/${res.data.grad.id}/edit`)])
             })
             .catch((err) => {
-              cb(null, [setError(err)]) 
+              cb(null, [setError(err)])
             })
           }),
           pull.flatten()
-            
-        ) 
+
+        )
       }
     }
   })

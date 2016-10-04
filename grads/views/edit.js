@@ -1,13 +1,13 @@
 const { html } = require('inu')
 const getFormData = require('get-form-data')
-const { run } = require('inux')
+const { run, navigate } = require('inux')
 const { update } = require('../effects')
 
 module.exports = edit
 
 function edit ({id}, {grads}, dispatch) {
   const grad = grads.get('grads').find(function (grad) {
-    return grad.get('id') == id
+    return grad.get('id') === Number(id)
   })
   function handleSubmit (ev) {
     ev.preventDefault()
@@ -16,8 +16,8 @@ function edit ({id}, {grads}, dispatch) {
     dispatch(run(update(formData)))
   }
   return html`<main>
-      ${ grad ? 
-        html `
+      ${grad 
+        ? html `
         <form onsubmit=${handleSubmit}>
           <fieldset>
             <label>image link</label>
@@ -49,12 +49,13 @@ function edit ({id}, {grads}, dispatch) {
           </fieldset>
           <fieldset>
             <label>skills</label>
-            <input name='skills' type='text' value=${grad.get('skills').toArray().join(" ")} />
+            <input name='skills' type='text' value=${grad.get('skills').toArray().join(' ')} />
           </fieldset>
           <input type='submit' value='Update' />
+          <button onclick=${() => dispatch(navigate('/'))}>Home</button>
         </form>
         `
-       : html`I can't find your profile!` }
+       : html`I can't find your profile!`}
   </main>
   `
 }

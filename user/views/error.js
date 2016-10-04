@@ -2,7 +2,7 @@ const { html } = require('inu')
 
 module.exports = error
 
-function error(model, dispatch) {
+function error (model, dispatch) {
   return html `
     ${model.user.get('error') ? html `
       <div class="callout alert">

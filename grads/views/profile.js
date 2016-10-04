@@ -9,7 +9,7 @@ function grad ({id}, model, dispatch) {
   })
   return html`
   <main>
-      ${ grad ? 
+      ${grad ?
         html`
         <div class='grad'>
           <div class="grad-image">
@@ -25,7 +25,7 @@ function grad ({id}, model, dispatch) {
           <button id="home" onclick=${() => dispatch(navigate(`/`))}>Back</button>
         </div>
         `
-       : html`<h2>We got no grads</h2>` }
+       : html`<h2>We got no grads</h2>`}
   </main>
   `
 }

@@ -1,4 +1,3 @@
-const { html, pull } = require('inu')
 const { Domain, run } = require('inux')
 const pullAsync = require('pull-async')
 const Immutable = require('immutable')
@@ -27,15 +26,15 @@ function Grads ({ api }) {
         return {model: model.set('grads', grads)}
       },
       [TOGGLE_FILTER]: (model, filter) => {
-        return {model: model.updateIn(['skillFilters','filters'], (filters) => {
-          return filters.has(filter) ? filters.delete(filter) : filters.add(filter) 
+        return {model: model.updateIn(['skillFilters', 'filters'], (filters) => {
+          return filters.has(filter) ? filters.delete(filter) : filters.add(filter)
         })}
       },
       [RESET_FILTER]: (model, filter) => {
-        return {model: model.setIn(['skillFilters','filters'], Set())}
+        return {model: model.setIn(['skillFilters', 'filters'], Set())}
       },
       [HIDE_FILTER]: (model, filter) => {
-        return {model: model.updateIn(['skillFilters', 'hidden'], (hidden) => !hidden)} 
+        return {model: model.updateIn(['skillFilters', 'hidden'], (hidden) => !hidden)}
       }
 
     },
@@ -47,7 +46,7 @@ function Grads ({ api }) {
             grads = Immutable.fromJS(grads)
             grads = grads.map((grad) => {
               return grad.update('skills', (skills) => {
-                return List(skills ? skills.split(' ') : [''] )
+                return List(skills ? skills.split(' ') : [''])
               })
             })
             cb(null, set(grads))
@@ -57,9 +56,9 @@ function Grads ({ api }) {
       [UPDATE]: (grad) => {
         return pullAsync(cb => {
           api.service('grads').patch(grad.id, grad, (err, res) => {
-            cb(err, run(get())) 
-          }) 
-        }) 
+            cb(err, run(get()))
+          })
+        })
       }
     }
   })

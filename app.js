@@ -1,7 +1,5 @@
 import { start, html, pull } from 'inu'
-import { App, Domain, Action, navigate } from 'inux'
-import Immutable, { Set } from 'immutable'
-import classnames from 'classnames'
+import { App, Domain, navigate } from 'inux'
 
 import Grads from './grads/app'
 import User from './user/app'
@@ -46,7 +44,7 @@ const view = (model, dispatch) => {
         </div> 
       </footer>
     </main>
-`}
+` }
 
 const home = Domain({
   name: 'home',

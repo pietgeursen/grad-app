@@ -25,7 +25,7 @@ function loginForm (model, dispatch) {
           ${error(model, dispatch)}
           <input type='submit' value='Login' />
         </form>
-      ` }
+      `}
     </main>
   `
   function handleSubmit (ev) {

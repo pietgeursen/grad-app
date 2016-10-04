@@ -10,5 +10,5 @@ module.exports = {
   GET,
   get,
   UPDATE,
-  update,
+  update
 }
