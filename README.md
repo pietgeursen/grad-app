@@ -1,7 +1,6 @@
+# EDA Grad App frontend 
 
-# 
-
-it's a real sweet app
+[![Build Status](https://travis-ci.org/pietgeursen/grad-app.svg?branch=master)](https://travis-ci.org/pietgeursen/grad-app)
 
 ## how
 
