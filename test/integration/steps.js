@@ -24,9 +24,13 @@ function mockClient (services) {
   }
 }
 function mockService (resource) {
+  var emitter
   return {
     find: (o, cb) => (
       cb(null, resource)
+    ),
+    on: (ev, cb) => (
+      emitter = cb 
     )
   }
 }
@@ -68,6 +72,7 @@ module.exports = [
         t.ok(button.click)
         button.click()
         t.end()
+        return false
       })
     )
   }],

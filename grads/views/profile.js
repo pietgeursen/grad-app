@@ -4,8 +4,8 @@ const { navigate } = require('inux')
 module.exports = grad
 
 function grad ({id}, model, dispatch) {
-  const grad = model.grads.find(function (grad) {
-    return grad.id == id
+  const grad = model.grads.get('grads').find(function (grad) {
+    return grad.get('id') === Number(id)
   })
   return html`
   <main>
@@ -13,15 +13,15 @@ function grad ({id}, model, dispatch) {
         html`
         <div class='grad'>
           <div class="grad-image">
-            <img src=${grad.image_link} alt="image of ${grad.name}">
+            <img src=${grad.get('image_link')} alt="image of ${grad.get('name')}">
           </div>
-          <h2>${grad.name}</h2>
-          <p>${grad.long_description}</p>
-          <div>${grad.phone}</div>
-          <div>${grad.cv_link}</div>
-          <div>${grad.github_link}</div>
-          <div>${grad.linkedin_link}</div>
-          <div>${grad.email}</div>
+          <h2>${grad.get('name')}</h2>
+          <p>${grad.get('long_description')}</p>
+          <div>${grad.get('phone')}</div>
+          <div>${grad.get('cv_link')}</div>
+          <div>${grad.get('github_link')}</div>
+          <div>${grad.get('linkedin_link')}</div>
+          <div>${grad.get('email')}</div>
           <button id="home" onclick=${() => dispatch(navigate(`/`))}>Back</button>
         </div>
         `
