@@ -1,9 +1,5 @@
 module.exports = [
-  makeFeatureArray('./viewGrads.js'),
-  makeFeatureArray('./viewGrad.js'),
-  makeFeatureArray('./login.js')
+  ['./viewGrads.js', require('./viewGrads.js')],
+  ['./viewGrad.js', require('./viewGrad.js')],
+  ['./login.js', require('./login.js')]
 ]
-function makeFeatureArray (fileName) {
-  const source = require(fileName)
-  return [fileName, source]
-}

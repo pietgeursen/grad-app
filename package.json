@@ -19,14 +19,6 @@
   "browserify": {
     "transform": [
       [
-        "evalify",
-        {
-          "files": [
-            "**/features.js"
-          ]
-        }
-      ],
-      [
         "babelify",
         {
           "presets": "es2015"
@@ -55,7 +47,6 @@
     "dependency-check": "^2.6.0",
     "domready": "^1.0.8",
     "envify": "^3.4.1",
-    "evalify": "^2.0.0",
     "feathers": "^2.0.1",
     "feathers-authentication": "^0.7.10",
     "feathers-hooks": "^1.5.7",
@@ -73,7 +64,6 @@
     "reselect": "^2.5.4",
     "socket.io-client": "^1.4.8",
     "standard": "^8.3.0",
-    "superagent": "^2.2.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1",
     "tape-run": "^2.1.4",
