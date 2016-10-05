@@ -1,5 +1,5 @@
 module.exports = [
-  ['./viewGrads.js', require('./viewGrads.js')],
-  ['./viewGrad.js', require('./viewGrad.js')],
-  ['./login.js', require('./login.js')]
+  [null, require('./viewGrads.js')],
+  [null, require('./viewGrad.js')],
+  [null, require('./login.js')]
 ]

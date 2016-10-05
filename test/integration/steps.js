@@ -17,10 +17,17 @@ const grad = {
   long_description: `Kia ora.. Left my scooter outside the dairy, this bloody scarfie is as chronic as a rough as guts bloke. Mean while, in West Auckland, Sir Edmond Hillary and Jim Hickey were up to no good with a bunch of thermo-nuclear marmite shortages. Fully, spit the dummy. The chocka full force of his playing rugby was on par with Bazza's fully sick chilly bin. I was just at home having some dots...., rack off.`
 }
 
-const user = {
+const gradUser = {
   id: 2,
   email: 'piet@derp.com',
-  grad}
+  roles: 'grad',
+  grad
+}
+const adminUser = {
+  id: 3,
+  email: 'admin@derp.com',
+  roles: 'admin'
+}
 
 function mockClient (services) {
   return {
@@ -33,11 +40,12 @@ function mockService (resource) {
   var emitters = {}
   return {
     find: (o, cb) => (
-    cb(null, resource)
+      cb(null, resource)
     ),
     on: (ev, cb) => (
-    emitters[ev] = cb
-    )
+      emitters[ev] = cb
+    ),
+    emitters
   }
 }
 
@@ -51,15 +59,12 @@ module.exports = [
   [/^I am an admin$/, function (t, world) {
     t.end()
   }],
-  [/^I am a grad$/, function (t, world) {
-    t.end()
-  }],
-  [/^I am a registered user$/, function (t, world) {
+  [/^I am a registered grad/, function (t, world) {
     world.email = 'pietgeursen@gmail.com'
     const gradsService = mockService([grad])
-    const usersService = mockService([user])
+    const usersService = mockService([gradUser])
     const authenticate = () => (
-      Promise.resolve({data: user})
+      Promise.resolve({data: gradUser})
     )
     world.client = mockClient({
       grads: gradsService,
@@ -186,17 +191,4 @@ function createMutants(el, window) {
       })
     )
   }
-}
-//waitForVisible
-//find
-// what are the usual testing framework methods like?
-function find (selector) {
-  return pull(
-    pull.filter(function (mutation) {
-      return mutation.target.querySelector(selector)
-    }),
-    pull.map(function (mutation) {
-      return mutation.target.querySelector(selector)
-    })
-  )
 }
