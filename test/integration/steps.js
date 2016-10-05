@@ -23,11 +23,11 @@ const gradUser = {
   roles: 'grad',
   grad
 }
-const adminUser = {
-  id: 3,
-  email: 'admin@derp.com',
-  roles: 'admin'
-}
+// const adminUser = {
+//  id: 3,
+//  email: 'admin@derp.com',
+//  roles: 'admin'
+// }
 
 function mockClient (services) {
   return {
@@ -152,34 +152,34 @@ module.exports = [
 
 ]
 
-function createMutants(el, window) {
+function createMutants (el, window) {
   return {
     find,
     click,
     mutants
-  } 
-  function mutants() {
-    return domMutant(el, window)  
   }
-  function find(selector, opts) {
+  function mutants () {
+    return domMutant(el, window)
+  }
+  function find (selector, opts) {
     const newElements = pull(
       mutants(),
       selectTargetEl(selector)
-    ) 
-    const currentElements = pull.once(el.querySelector(selector)) 
+    )
+    const currentElements = pull.once(el.querySelector(selector))
     return many([
       newElements,
-      currentElements 
+      currentElements
     ])
   }
-  function click(selector, opts) {
+  function click (selector, opts) {
     return pull(
       find(selector, opts),
       pull.map(el => {
-        el.click() 
+        el.click()
         return el
       })
-    ) 
+    )
   }
   function selectTargetEl (selector) {
     return pull(
