@@ -1,6 +1,5 @@
 var pull = require('pull-stream')
 var { drain } = require('pull-stream')
-var many = require('pull-many')
 var createDomStream = require('pull-dom-driver')
 
 var startApp = require('../../app')
