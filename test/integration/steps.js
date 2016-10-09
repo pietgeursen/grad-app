@@ -1,7 +1,7 @@
 var pull = require('pull-stream')
 var { drain } = require('pull-stream')
-var domMutant = require('pull-dom-mutants')
 var many = require('pull-many')
+var createDomStream = require('pull-dom-driver')
 
 var startApp = require('../../app')
 
@@ -77,7 +77,7 @@ module.exports = [
   [/^I click on login$/, function (t, world) {
     const loginSelector = '#login'
     pull(
-      world.mutants.find(loginSelector),
+      world.dom.find(loginSelector),
       drain((button) => {
         t.ok(button)
         button.click()
@@ -88,7 +88,7 @@ module.exports = [
   }],
   [/^I click on a grad's profile$/, function (t, world) {
     pull(
-      world.mutants.find('.view-grad'),
+      world.dom.find('.view-grad'),
       drain(function (button) {
         t.ok(button.click)
         button.click()
@@ -99,7 +99,7 @@ module.exports = [
   }],
   [/^I fill out valid credentials$/, function (t, world) {
     pull(
-      world.mutants.click('input[type="submit"]'),
+      world.dom.click('input[type="submit"]'),
       drain(function (button) {
         t.ok(button)
         t.end()
@@ -110,7 +110,7 @@ module.exports = [
   [/^I am on the home page$/, function (t, world) {
     const window = require('global/window')
     const main = window.document.createElement('main')
-    world.mutants = createMutants(main, window)
+    world.dom = createDomStream(main)
 
     window.history.pushState({}, null, '/')
 
@@ -122,7 +122,7 @@ module.exports = [
   }],
   [/^I should see a grad's profile page$/, function (t, world) {
     pull(
-      world.mutants.find('#home'),
+      world.dom.find('#home'),
       drain(homeButton => {
         t.ok(homeButton)
         t.end()
@@ -131,7 +131,7 @@ module.exports = [
   }],
   [/^I should see a list of graduates$/, function (t, world, params) {
     pull(
-      world.mutants.find('.grad'),
+      world.dom.find('.grad'),
       drain(function (elem) {
         t.ok(elem)
         t.end()
@@ -141,7 +141,7 @@ module.exports = [
   }],
   [/^I should see a form to edit my profile$/, function (t, world, params) {
     pull(
-      world.mutants.find('#edit-grad'),
+      world.dom.find('#edit-grad'),
       drain(function (form) {
         t.ok(form)
         t.end()
@@ -152,43 +152,3 @@ module.exports = [
 
 ]
 
-function createMutants (el, window) {
-  return {
-    find,
-    click,
-    mutants
-  }
-  function mutants () {
-    return domMutant(el, window)
-  }
-  function find (selector, opts) {
-    const newElements = pull(
-      mutants(),
-      selectTargetEl(selector)
-    )
-    const currentElements = pull.once(el.querySelector(selector))
-    return many([
-      newElements,
-      currentElements
-    ])
-  }
-  function click (selector, opts) {
-    return pull(
-      find(selector, opts),
-      pull.map(el => {
-        el.click()
-        return el
-      })
-    )
-  }
-  function selectTargetEl (selector) {
-    return pull(
-      pull.filter(function (mutation) {
-        return mutation.target.querySelector(selector)
-      }),
-      pull.map(function (mutation) {
-        return mutation.target.querySelector(selector)
-      })
-    )
-  }
-}
