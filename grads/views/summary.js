@@ -4,7 +4,7 @@ const { skilledGradsSelector } = require('../selectors')
 
 module.exports = summary
 
-function summary (model, dispatch) {
+function summary (_, model, dispatch) {
   const grads = skilledGradsSelector(model.grads)
   return grads.map(function (grad) {
     return html`

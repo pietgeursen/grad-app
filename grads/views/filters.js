@@ -4,7 +4,7 @@ const { toggleFilter, resetFilter, hideFilter } = require('../actions')
 
 module.exports = filters
 
-function filters (model, dispatch) {
+function filters (params, model, dispatch) {
   const allSkills = allSkillsSelector(model.grads)
   const requiredSkills = filtersSelector(model.grads)
   return html`

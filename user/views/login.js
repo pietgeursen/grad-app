@@ -8,10 +8,10 @@ const error = require('./error')
 
 module.exports = loginForm
 
-function loginForm (model, dispatch) {
+function loginForm (params, model, dispatch) {
   return html `
-    <main>
-      ${model.user.get('loggedIn') ? details(model, dispatch) : html`
+    <div>
+      ${model.user.get('loggedIn') ? details(params, model, dispatch) : html`
         <form onsubmit=${handleSubmit} >
           <input name='agent' type='hidden' />
           <fieldset>
@@ -22,11 +22,11 @@ function loginForm (model, dispatch) {
             <label>password</label>
             <input name='password' type='password' />
           </fieldset>
-          ${error(model, dispatch)}
+          ${error(params, model, dispatch)}
           <input type='submit' value='Login' />
         </form>
       `}
-    </main>
+    </div>
   `
   function handleSubmit (ev) {
     ev.preventDefault()

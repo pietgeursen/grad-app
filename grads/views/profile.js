@@ -8,7 +8,7 @@ function grad ({id}, model, dispatch) {
     return grad.get('id') === Number(id)
   })
   return html`
-  <main>
+  <div>
       ${grad
         ? html`
         <div class='grad'>
@@ -26,6 +26,6 @@ function grad ({id}, model, dispatch) {
         </div>
         `
        : html`<h2>We got no grads</h2>`}
-  </main>
+  </div>
   `
 }
