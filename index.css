@@ -1,20 +1,22 @@
 body {
   width: 100%;
 }
-.row {
-  max-width: 87.5rem;
-}
 footer {
- bottom: 0;
- width: 100%;
+  bottom: 0;
+  width: 100%;
 }
 footer .row {
-  max-width: none;
   background-color: #323a45;
 }
+
+ul div img {
+  min-width: 5rem;
+}
+
 footer img {
- padding: 1rem;
- max-height: 8rem;
+  padding: 1rem;
+  min-width: 5rem;
+  max-height: 8rem;
 }
 
 #login > i {
