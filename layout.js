@@ -6,9 +6,9 @@ module.exports = (render) => (params, model, dispatch) => {
     <main>
       <div class="top-bar">
         <div class="top-bar-left">
-          <ul class="menu">
-            <li class="menu-text">Enspiral Dev Academy</li>
-            <button id="login" onclick=${() => dispatch(navigate('/login'))}>
+          <ul class="menu row align-justify">
+            <li class="menu-text column small-10">Enspiral Dev Academy</li>
+            <button class="column small-2" id="login" onclick=${() => dispatch(navigate('/login'))}>
               <i class="fi-torso"></i>
             </button>
           </ul>
