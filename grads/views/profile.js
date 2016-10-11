@@ -1,10 +1,9 @@
 const { html } = require('inu')
 const { navigate } = require('inux')
 
-module.exports = grad
 
-function grad ({id}, model, dispatch) {
-  const grad = model.grads.get('grads').find(function (grad) {
+const grad = ({id}, model, dispatch) => {
+  const grad = model.grads.get('grads').find((grad) => {
     return grad.get('id') === Number(id)
   })
   return html`
@@ -29,3 +28,5 @@ function grad ({id}, model, dispatch) {
   </div>
   `
 }
+
+module.exports = grad

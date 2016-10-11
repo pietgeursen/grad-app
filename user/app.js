@@ -6,9 +6,7 @@ const { Map } = require('immutable')
 const { SET, set, SET_ERROR, setError } = require('./actions')
 const { LOGIN } = require('./effects')
 
-module.exports = User
-
-function User ({ api }) {
+const User = ({ api }) => {
   return Domain({
     name: 'user',
     init: () => ({
@@ -49,3 +47,5 @@ function User ({ api }) {
     }
   })
 }
+
+module.exports = User

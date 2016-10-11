@@ -2,13 +2,17 @@ const { html } = require('inu')
 const { run } = require('inux')
 const getFormData = require('get-form-data')
 
-const { login } = require('../effects')
+const effects = require('../effects')
 const details = require('./details')
 const error = require('./error')
 
-module.exports = loginForm
+const login = (params, model, dispatch) => {
+  const handleSubmit = (ev) => {
+    ev.preventDefault()
+    const formData = getFormData(ev.target)
+    dispatch(run(effects.login(formData)))
+  }
 
-function loginForm (params, model, dispatch) {
   return html `
     <div>
       ${model.user.get('loggedIn') ? details(params, model, dispatch) : html`
@@ -28,9 +32,6 @@ function loginForm (params, model, dispatch) {
       `}
     </div>
   `
-  function handleSubmit (ev) {
-    ev.preventDefault()
-    const formData = getFormData(ev.target)
-    dispatch(run(login(formData)))
-  }
 }
+
+module.exports = login

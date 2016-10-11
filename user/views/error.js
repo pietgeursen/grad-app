@@ -1,8 +1,7 @@
 const { html } = require('inu')
 
-module.exports = error
 
-function error (params, model, dispatch) {
+const error = (params, model, dispatch) => {
   return html `
     ${model.user.get('error') ? html `
       <div class="callout alert">
@@ -12,3 +11,5 @@ function error (params, model, dispatch) {
     ` : null}
   `
 }
+
+module.exports = error

@@ -2,11 +2,10 @@ const { html } = require('inu')
 const { navigate } = require('inux')
 const { skilledGradsSelector } = require('../selectors')
 
-module.exports = summary
 
-function summary (_, model, dispatch) {
+const summary = (_, model, dispatch) => {
   const grads = skilledGradsSelector(model.grads)
-  return grads.map(function (grad) {
+  return grads.map((grad) => {
     return html`
       <div class="grad row callout secondary">
         <div class="columns">
@@ -37,3 +36,5 @@ function summary (_, model, dispatch) {
     `
   }).toArray()
 }
+
+module.exports = summary

@@ -1,8 +1,8 @@
-var pull = require('pull-stream')
-var { drain } = require('pull-stream')
-var createDomStream = require('pull-dom-driver')
+const pull = require('pull-stream')
+const { drain } = require('pull-stream')
+const createDomStream = require('pull-dom-driver')
 
-var startApp = require('../../app')
+const startApp = require('../../app')
 
 const grad = {
   id: 1,
@@ -28,15 +28,15 @@ const gradUser = {
 //  roles: 'admin'
 // }
 
-function mockClient (services) {
+const mockClient = (services) => {
   return {
     service: (serviceName) => (
     services[serviceName]
     )
   }
 }
-function mockService (resource) {
-  var emitters = {}
+const mockService = (resource) => {
+  const emitters = {}
   return {
     find: (o, cb) => (
       cb(null, resource)
@@ -49,16 +49,16 @@ function mockService (resource) {
 }
 
 module.exports = [
-  [/^I am a potential employer$/, function (t, world) {
+  [/^I am a potential employer$/, (t, world) => {
     const gradsService = mockService([grad])
     world.client = mockClient({grads: gradsService})
     t.ok(true)
     t.end()
   }],
-  [/^I am an admin$/, function (t, world) {
+  [/^I am an admin$/, (t, world) => {
     t.end()
   }],
-  [/^I am a registered grad/, function (t, world) {
+  [/^I am a registered grad/, (t, world) => {
     world.email = 'pietgeursen@gmail.com'
     const gradsService = mockService([grad])
     const usersService = mockService([gradUser])
@@ -73,7 +73,7 @@ module.exports = [
     t.ok(true)
     t.end()
   }],
-  [/^I click on login$/, function (t, world) {
+  [/^I click on login$/, (t, world) => {
     const loginSelector = '#login'
     pull(
       world.dom.find(loginSelector),
@@ -85,10 +85,10 @@ module.exports = [
       })
     )
   }],
-  [/^I click on a grad's profile$/, function (t, world) {
+  [/^I click on a grad's profile$/, (t, world) => {
     pull(
       world.dom.find('.view-grad'),
-      drain(function (button) {
+      drain((button) => {
         t.ok(button.click)
         button.click()
         t.end()
@@ -96,17 +96,17 @@ module.exports = [
       })
     )
   }],
-  [/^I fill out valid credentials$/, function (t, world) {
+  [/^I fill out valid credentials$/, (t, world) => {
     pull(
       world.dom.click('input[type="submit"]'),
-      drain(function (button) {
+      drain((button) => {
         t.ok(button)
         t.end()
         return false
       })
     )
   }],
-  [/^I am on the home page$/, function (t, world) {
+  [/^I am on the home page$/, (t, world) => {
     const window = require('global/window')
     const main = window.document.createElement('main')
     world.dom = createDomStream(main)
@@ -119,7 +119,7 @@ module.exports = [
     t.ok(true)
     t.end()
   }],
-  [/^I should see a grad's profile page$/, function (t, world) {
+  [/^I should see a grad's profile page$/, (t, world) => {
     pull(
       world.dom.find('#home'),
       drain(homeButton => {
@@ -128,20 +128,20 @@ module.exports = [
       })
     )
   }],
-  [/^I should see a list of graduates$/, function (t, world, params) {
+  [/^I should see a list of graduates$/, (t, world, params) => {
     pull(
       world.dom.find('.grad'),
-      drain(function (elem) {
+      drain((elem) => {
         t.ok(elem)
         t.end()
         return false
       })
     )
   }],
-  [/^I should see a form to edit my profile$/, function (t, world, params) {
+  [/^I should see a form to edit my profile$/, (t, world, params) => {
     pull(
       world.dom.find('#edit-grad'),
-      drain(function (form) {
+      drain((form) => {
         t.ok(form)
         t.end()
         return false
