@@ -7,9 +7,7 @@ const { List, Set, Map } = require('immutable')
 const { SET, set, TOGGLE_FILTER, RESET_FILTER, HIDE_FILTER, UPDATED, updated, CREATED, created } = require('./actions')
 const { GET, get, UPDATE, INIT, init } = require('./effects')
 
-module.exports = Grads
-
-function Grads ({ api }) {
+const Grads = ({ api }) => {
   return Domain({
     name: 'grads',
     init: () => ({
@@ -56,16 +54,17 @@ function Grads ({ api }) {
           p.push(created(newGrad))
         })
         p.push(run(get()))
-        return p
 
-        function immutableGrad (grad) {
+        const immutableGrad = (grad) => {
           grad = Immutable.fromJS(grad)
           return splitGradSkills(grad)
         }
-        function pushUpdatedGrad (grad) {
+        const pushUpdatedGrad = (grad) => {
           const newGrad = immutableGrad(grad)
           p.push(updated(newGrad))
         }
+
+        return p
       },
       [GET]: () => {
         return pullAsync(cb => {
@@ -84,8 +83,10 @@ function Grads ({ api }) {
   })
 }
 
-function splitGradSkills (grad) {
+const splitGradSkills = (grad) => {
   return grad.update('skills', (skills) => {
     return List(skills ? skills.split(' ') : [''])
   })
 }
+
+module.exports = Grads

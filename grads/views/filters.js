@@ -2,9 +2,8 @@ const { html } = require('inu')
 const { filtersSelector, allSkillsSelector } = require('../selectors')
 const { toggleFilter, resetFilter, hideFilter } = require('../actions')
 
-module.exports = filters
 
-function filters (params, model, dispatch) {
+const filters = (params, model, dispatch) => {
   const allSkills = allSkillsSelector(model.grads)
   const requiredSkills = filtersSelector(model.grads)
   return html`
@@ -25,3 +24,5 @@ function filters (params, model, dispatch) {
   </div>
   `
 }
+
+module.exports = filters

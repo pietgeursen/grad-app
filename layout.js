@@ -1,7 +1,7 @@
 const { html } = require('inu')
 const { navigate } = require('inux')
 
-export default (render) => (params, model, dispatch) => {
+module.exports = (render) => (params, model, dispatch) => {
   return html`
     <main>
       <div class="top-bar">
@@ -9,7 +9,7 @@ export default (render) => (params, model, dispatch) => {
           <ul class="menu">
             <li class="menu-text">Enspiral Dev Academy</li>
             <button id="login" onclick=${() => dispatch(navigate('/login'))}>
-              <i class="fi-key"></i>
+              <i class="fi-torso"></i>
             </button>
           </ul>
         </div>

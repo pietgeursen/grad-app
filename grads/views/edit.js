@@ -3,13 +3,12 @@ const getFormData = require('get-form-data')
 const { run, navigate } = require('inux')
 const { update } = require('../effects')
 
-module.exports = edit
 
-function edit ({id}, {grads}, dispatch) {
-  const grad = grads.get('grads').find(function (grad) {
+const edit = ({id}, {grads}, dispatch) => {
+  const grad = grads.get('grads').find((grad) => {
     return grad.get('id') === Number(id)
   })
-  function handleSubmit (ev) {
+  const handleSubmit = (ev) => {
     ev.preventDefault()
     const formData = getFormData(ev.target)
     formData.id = Number(id)
@@ -59,3 +58,5 @@ function edit ({id}, {grads}, dispatch) {
   </main>
   `
 }
+
+module.exports = edit

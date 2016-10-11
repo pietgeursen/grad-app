@@ -1,8 +1,8 @@
-import { html } from 'inu'
-import filters from './filters'
-import summary from './summary'
+const { html } = require('inu')
+const filters = require('./filters')
+const summary = require('./summary')
 
-module.exports = (params, model, dispatch) => {
+const home = (params, model, dispatch) => {
   return html`
   <div>
     <div class="row">
@@ -16,3 +16,5 @@ module.exports = (params, model, dispatch) => {
   </div>
   `
 }
+
+module.exports = home

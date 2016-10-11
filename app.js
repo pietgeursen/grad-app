@@ -1,13 +1,13 @@
-import { start, html, pull } from 'inu'
-import { App, Domain } from 'inux'
+const { start, html, pull } = require('inu')
+const { App, Domain } = require('inux')
 
-import Grads from './grads/app'
-import User from './user/app'
-import layout from './layout'
-import home from './grads/views/home'
-import profile from './grads/views/profile'
-import edit from './grads/views/edit'
-import login from './user/views/login'
+const Grads = require('./grads/app')
+const User = require('./user/app')
+const layout = require('./layout')
+const home = require('./grads/views/home')
+const profile = require('./grads/views/profile')
+const edit = require('./grads/views/edit')
+const login = require('./user/views/login')
 
 const homeDomain = Domain({
   name: 'home',
@@ -24,7 +24,7 @@ const homeDomain = Domain({
   ]
 })
 
-module.exports = function startApp (elem, api) {
+const startApp = (elem, api) => {
   const app = App([
     homeDomain,
     User({ api }),
@@ -34,8 +34,10 @@ module.exports = function startApp (elem, api) {
 
   pull(
     sources.views(),
-    pull.drain(function (view) {
+    pull.drain((view) => {
       html.update(elem, view)
     })
   )
 }
+
+module.exports = startApp

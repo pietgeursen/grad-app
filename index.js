@@ -1,11 +1,11 @@
-var domready = require('domready')
-var start = require('./app')
+const domready = require('domready')
+const start = require('./app')
 
-var config = require('./config')
-var Api = require('./api')
+const config = require('./config')
+const Api = require('./api')
 
-var api = Api(config.host)
+const api = Api(config.host)
 
-domready(function () {
+domready(() => {
   start(document.querySelector('main'), api)
 })

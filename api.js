@@ -1,12 +1,14 @@
-var feathers = require('feathers/client')
-var hooks = require('feathers-hooks')
-var auth = require('feathers-authentication/client')
-var io = require('socket.io-client')
-var socketio = require('feathers-socketio/client')
+const feathers = require('feathers/client')
+const hooks = require('feathers-hooks')
+const auth = require('feathers-authentication/client')
+const io = require('socket.io-client')
+const socketio = require('feathers-socketio/client')
 
-module.exports = function Api (host) {
+const Api = (host) => {
   return feathers()
     .configure(socketio(io(host)))
     .configure(hooks())
     .configure(auth())
 }
+
+module.exports = Api

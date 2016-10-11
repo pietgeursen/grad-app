@@ -1,11 +1,11 @@
-import { createSelector } from 'reselect'
-import Immutable from 'immutable'
+const { createSelector } = require('reselect')
+const Immutable = require('immutable')
 
-export const gradsSelector = model => model.get('grads')
+const gradsSelector = model => model.get('grads')
 
-export const filtersSelector = model => model.getIn(['skillFilters', 'filters'])
+const filtersSelector = model => model.getIn(['skillFilters', 'filters'])
 
-export const allSkillsSelector = createSelector(
+const allSkillsSelector = createSelector(
   gradsSelector,
   grads => {
     return grads.reduce((skills, grad) => {
@@ -14,7 +14,7 @@ export const allSkillsSelector = createSelector(
   }
 )
 
-export const skilledGradsSelector = createSelector(
+const skilledGradsSelector = createSelector(
   filtersSelector,
   gradsSelector,
   (requiredSkills, grads) => {
@@ -25,3 +25,10 @@ export const skilledGradsSelector = createSelector(
     })
   }
 )
+
+module.exports = {
+  gradsSelector,
+  filtersSelector,
+  allSkillsSelector,
+  skilledGradsSelector
+}
