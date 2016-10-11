@@ -5,7 +5,7 @@ module.exports = (render) => (params, model, dispatch) => {
   return html`
     <main>
           <ul class="menu row align-justify">
-            <div class="small-2 columns">
+            <div class="small-2 columns" onclick=${() => dispatch(navigate('/'))}>
               <img src="/logo-02.svg" alt="Enspiral Dev Academy Logo"> 
             </div> 
             <li class="small columns"></li>
