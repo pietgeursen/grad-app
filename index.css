@@ -16,3 +16,7 @@ footer img {
  padding: 1rem;
  max-height: 8rem;
 }
+
+#login > i {
+  font-size: 3em;
+}
