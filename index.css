@@ -7,18 +7,30 @@ footer {
 }
 footer .row {
   background-color: #323a45;
+  height: 3rem;
 }
-
-ul div img {
+#menubar {
+  background-color: #323a45;
+}
+.top-bar button img {
   min-width: 5rem;
+  min-height: 2.5rem;
+  height: 2.5rem
 }
 
 footer img {
-  padding: 1rem;
-  min-width: 5rem;
-  max-height: 8rem;
+  min-width: 3rem;
+  min-height: 3rem;
+  height: 3rem;
 }
 
 #login > i {
   font-size: 3em;
+}
+
+#menubar {
+  height: 2rem;
+}
+#home-icon {
+ padding: 0;
 }
