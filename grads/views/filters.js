@@ -1,6 +1,6 @@
 const { html } = require('inu')
 const { filtersSelector, allSkillsSelector } = require('../selectors')
-const { toggleFilter, resetFilter, hideFilter } = require('../actions')
+const { toggleFilter, resetFilter } = require('../actions')
 const classnames = require('classnames')
 
 const filters = (params, model, dispatch) => {
@@ -11,7 +11,7 @@ const filters = (params, model, dispatch) => {
     <div class="button-group row expanded" >
       <button 
         onclick=${() => dispatch(resetFilter())} 
-        class=${classnames('button', requiredSkills.size === 0 ? 'success': 'secondary')}>
+        class=${classnames('button', requiredSkills.size === 0 ? 'success' : 'secondary')}>
         All
       </button>
       ${allSkills.map((skill) => (
