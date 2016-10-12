@@ -76,10 +76,9 @@ module.exports = [
   [/^I click on login$/, (t, world) => {
     const loginSelector = '#login'
     pull(
-      world.dom.find(loginSelector),
+      world.dom.click(loginSelector),
       drain((button) => {
         t.ok(button)
-        button.click()
         t.end()
         return false
       })
@@ -87,10 +86,9 @@ module.exports = [
   }],
   [/^I click on a grad's profile$/, (t, world) => {
     pull(
-      world.dom.find('.view-grad'),
+      world.dom.click('.view-grad'),
       drain((button) => {
-        t.ok(button.click)
-        button.click()
+        t.ok(button)
         t.end()
         return false
       })
@@ -110,6 +108,7 @@ module.exports = [
     const window = require('global/window')
     const main = window.document.createElement('main')
     world.dom = createDomStream(main)
+    world.main = main
 
     window.history.pushState({}, null, '/')
 

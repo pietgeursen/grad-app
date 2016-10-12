@@ -5,13 +5,9 @@ const summary = require('./summary')
 const home = (params, model, dispatch) => {
   return html`
   <div>
-    <div class="row">
+    <div class="row column">
       ${filters(params, model, dispatch)}
-    </div>
-    <div class="row">
-      <div class="medium-8 columns">
-        ${summary(params, model, dispatch)}
-      </div>
+      ${summary(params, model, dispatch)}
     </div>
   </div>
   `

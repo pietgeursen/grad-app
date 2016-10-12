@@ -14,7 +14,7 @@ const edit = ({id}, {grads}, dispatch) => {
     formData.id = Number(id)
     dispatch(run(update(formData)))
   }
-  return html`<main>
+  return html`
       ${grad
         ? html `
         <form id="edit-grad" onsubmit=${handleSubmit}>
@@ -55,7 +55,6 @@ const edit = ({id}, {grads}, dispatch) => {
         </form>
         `
        : html`I can't find your profile!`}
-  </main>
   `
 }
 
