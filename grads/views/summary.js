@@ -24,7 +24,7 @@ const summary = (_, model, dispatch) => {
           <p>${grad.get('short_description')}</p>
           <button class="view-grad" onclick=${() => dispatch(navigate(`grads/${grad.get('id')}`))}>More...</button>
         </div> 
-        <div class="small-2 columns">
+        <div class="small-4 medium-2 columns">
           <h3>Skills</h3>
           <ul>
             ${grad.get('skills').map((skill) => (

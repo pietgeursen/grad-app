@@ -16,7 +16,9 @@ module.exports = (render) => (params, model, dispatch) => {
         <div class="row column text-center">
         </div>
       </div>
-      ${render(params, model, dispatch)}
+      <div class="row columns">
+        ${render(params, model, dispatch)}
+      </div> 
       <footer>
         <div class="row expanded align-spaced">
           <div class="small-3 small-offset-9 medium-1 medium-offset-11 small-collapse columns">
