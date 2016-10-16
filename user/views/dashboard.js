@@ -6,7 +6,6 @@ const { create } = require('../effects')
 const dashboard = ({id}, model, dispatch) => {
   // ui confirms created grad
   //redirect when account not admin
-  const user = model.user
   const grads = model.grads.get('grads')
   const handleCreate = (ev) => {
     ev.preventDefault()
