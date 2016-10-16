@@ -12,7 +12,7 @@
     "test:integration": "browserify test/integration/cuke.js | tape-run | tap-spec",
     "test:watch": "watchify test/integration/cuke.js -o '| tape-run' ",
     "test:debug": "budo test/integration/cuke.js -d --serve bundle.js --live ",
-    "dist": "mkdir -p dist && bash -c 'cp *.{html,css} dist' && bash -c 'cp bundle.js dist' && bash -c 'cp foundation-icons dist -r'",
+    "dist": "mkdir -p dist && bash -c 'cp *.{html,css,svg} dist' && bash -c 'cp bundle.js dist' && bash -c 'cp foundation-icons dist -r'",
     "push": "gh-pages -d dist",
     "deploy": "npm run build && npm run dist && npm run push"
   },

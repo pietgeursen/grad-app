@@ -86,7 +86,7 @@ module.exports = [
   }],
   [/^I click on a grad's profile$/, (t, world) => {
     pull(
-      world.dom.click('.view-grad'),
+      world.dom.click('.grad'),
       drain((button) => {
         t.ok(button)
         t.end()

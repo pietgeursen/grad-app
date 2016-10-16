@@ -6,8 +6,9 @@ const { skilledGradsSelector } = require('../selectors')
 const summary = (_, model, dispatch) => {
   const grads = skilledGradsSelector(model.grads)
   return grads.map((grad) => {
+    const viewGrad = () => dispatch(navigate(`grads/${grad.get('id')}`))
     return html`
-      <div class="grad row callout secondary">
+      <div class="grad row callout secondary" onclick=${viewGrad}>
         <div class="columns">
           <div class="row">
             <div class="grad-image small-4 columns">
@@ -22,7 +23,7 @@ const summary = (_, model, dispatch) => {
             </div>
           </div>
           <p>${grad.get('short_description')}</p>
-          <button class="view-grad" onclick=${() => dispatch(navigate(`grads/${grad.get('id')}`))}>More...</button>
+          <button class="view-grad" onclick=${viewGrad}>More...</button>
         </div> 
         <div class="small-4 medium-2 columns">
           <h3>Skills</h3>

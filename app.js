@@ -7,6 +7,7 @@ const layout = require('./layout')
 const home = require('./grads/views/home')
 const profile = require('./grads/views/profile')
 const edit = require('./grads/views/edit')
+const dashboard = require('./user/views/dashboard')
 const login = require('./user/views/login')
 
 const homeDomain = Domain({
@@ -19,6 +20,7 @@ const homeDomain = Domain({
   routes: [
     ['/grads/:id', layout(profile)],
     ['/grads/:id/edit', layout(edit)],
+    ['/dashboard', layout(dashboard)],
     ['/login', layout(login)],
     ['/', layout(home)]
   ]

@@ -46,15 +46,6 @@ const Grads = ({ api }) => {
     },
     run: {
       [INIT]: () => {
-        const p = Push()
-        api.service('grads').on('updated', pushUpdatedGrad)
-        api.service('grads').on('patched', pushUpdatedGrad)
-        api.service('grads').on('created', (grad) => {
-          const newGrad = immutableGrad(grad)
-          p.push(created(newGrad))
-        })
-        p.push(run(get()))
-
         const immutableGrad = (grad) => {
           grad = Immutable.fromJS(grad)
           return splitGradSkills(grad)
@@ -63,6 +54,14 @@ const Grads = ({ api }) => {
           const newGrad = immutableGrad(grad)
           p.push(updated(newGrad))
         }
+        const p = Push()
+        api.service('grads').on('updated', pushUpdatedGrad)
+        api.service('grads').on('patched', pushUpdatedGrad)
+        api.service('grads').on('created', (grad) => {
+          const newGrad = immutableGrad(grad)
+          p.push(created(newGrad))
+        })
+        p.push(run(get()))
 
         return p
       },
