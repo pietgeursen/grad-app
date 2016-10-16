@@ -29,14 +29,14 @@ const User = ({ api }) => {
     },
     run: {
       [CREATE_GRAD]: (user) => {
-        const grad = Object.assign(user, {roles: "grad"})
+        const grad = Object.assign(user, {roles: 'grad'})
         return pull(
           pullAsync(cb => {
-            api.service('users').create(user) 
+            api.service('users').create(grad)
             .then(console.log)
             .catch(console.log)
-          }), 
-        ) 
+          })
+        )
       },
       [LOGIN]: ({email, password}) => {
         const credentials = Object.assign({email, password}, {type: 'local'})
@@ -46,13 +46,12 @@ const User = ({ api }) => {
               .then((res) => {
                 const user = res.data
                 const role = user.roles
-                var route;
-                if(role === 'admin'){
-                  route = '/dashboard' 
-                }else if(role === 'grad')
-                {
-                  route = `/grads/${user.grad.id}/edit` 
-                }  
+                var route
+                if (role === 'admin') {
+                  route = '/dashboard'
+                } else if (role === 'grad') {
+                  route = `/grads/${user.grad.id}/edit`
+                }
                 cb(null, [set(user), navigate(route)])
               })
               .catch((err) => {

@@ -3,7 +3,6 @@ const { run } = require('inux')
 const getFormData = require('get-form-data')
 
 const effects = require('../effects')
-const details = require('./details')
 const error = require('./error')
 
 const login = (params, model, dispatch) => {
